@@ -1,0 +1,18 @@
+.MuiStepIcon-root.MuiStepIcon-completed {
+    color: #7fb850 !important;
+}
+
+.MuiStepIcon-root.MuiStepIcon-active {
+    color: #7fb850 !important;
+}
+
+.MuiButton-containedPrimary {
+    color: #fff;
+    background-color: #7fb850 !important;
+}
+
+@media (max-width: 767px){
+    .MuiStepLabel-labelContainer{
+        display: none;
+    }    
+}
