@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
@@ -10,22 +10,9 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 
 export default function PanelExpansion(props) {
-  const {title, changeSubTipoTramite, selectedSubTipoTramite, panelForm, children} = props
-  const [ stateChecked, setStateChecked ] = React.useState(false)
+  const {title, handleChange, children} = props
+  const [ stateChecked, setStateChecked ] = useState(false)
   const classes = useStyles();
-  React.useEffect(() => {
-    if(selectedSubTipoTramite !== title){
-      setStateChecked(false)
-    }else{
-      setStateChecked(true)
-    }
-
-  }, [selectedSubTipoTramite])
-
-  const elegirSubTipoTramite = (event) => {
-    setStateChecked(!stateChecked)  
-    changeSubTipoTramite(event.target.name)
-  }
 
   return (
     <div className={classes.root}>
@@ -35,8 +22,6 @@ export default function PanelExpansion(props) {
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
-          {!panelForm ? title : null}
-          {panelForm ? (
             <FormControlLabel
               aria-label="Acknowledge"
               onClick={(event) => event.stopPropagation()}
@@ -44,15 +29,13 @@ export default function PanelExpansion(props) {
               control={
                 <Checkbox
                   name={title}
-                  onChange={elegirSubTipoTramite}
+                  onChange={handleChange}
                   value={title}
                   checked={stateChecked}
                 />
               }
               label={title}
             />
-          ) : null}
-
           <Typography className={classes.heading}></Typography>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>

@@ -1,26 +1,23 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import { Provider } from 'react-redux'
-import Header from './Components/Header/Header'
-import Home from './Views/Home'
-import Login from './Views/Login'
+import IdentificactionClientView from './Views/IdentificactionClientView'
 import Admin from './Views/Admin'
+import OfficeTypeView from './Views/OfficeTypeView'
+import SubOfficeTypeView from './Views/SubOfficeTypeView'
+import DateTimeClientShiftView from './Views/DateTimeClientShiftView' 
+import ModalityClarificationsClientView from './Views/ModalityClarificationsClientView'
 import configureStore from './Store/ConfigureStore'
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Link
+  Route
 } from "react-router-dom"
 
 const initialState = {
-  stepActive: 0, //debe empezar en -2
-  subTipoTramiteData : [],
-  selectedSubTipoTramite: "",
-  selectedFechaHoraTurno: [],
-  modalidadAclaracion: {modalidad: "presencial", aclaraciones: ""},
-  userData: ""
+  stepActive: 0,
+  user : {},
+  shift: {}
 }
 
 const store = configureStore(initialState)
@@ -30,13 +27,27 @@ function App() {
     <Provider store={store}>
       <div className="App">
         <Router>
-        <Header></Header>
           <Switch>
             <Route path="/" exact>
-              <Home />
+              <OfficeTypeView />
             </Route>
-            <Route path="/login">
-              <Login />
+            <Route path="/subOffice/:id">
+              <SubOfficeTypeView />
+            </Route>
+            <Route path="/admin">
+              <Admin />
+            </Route>
+            <Route path="/admin">
+              <Admin />
+            </Route>DateTimeClientShiftView
+            <Route path="/identification">
+              <IdentificactionClientView />
+            </Route>
+            <Route path="/selectdatetime">
+              <DateTimeClientShiftView />
+            </Route>
+            <Route path="/modalityshift">
+              <ModalityClarificationsClientView />
             </Route>
             <Route path="/admin">
               <Admin />

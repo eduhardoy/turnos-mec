@@ -1,9 +1,16 @@
 import { actionTypes } from './ActionTypes'
 
-//Recibe en que posicion se encuentra activo el step
-export const activeStep = payload => {
+
+export const addStepActive = payload => {
     return {
-        type: actionTypes.STEP_ACTIVE,
+        type: actionTypes.ADD_STEP_ACTIVE,
+        payload
+    }
+}
+
+export const substractStepActive = payload => {
+    return {
+        type: actionTypes.SUBSTRACT_STEP_ACTIVE,
         payload
     }
 }

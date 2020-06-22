@@ -1,33 +1,53 @@
-import axios from 'axios';
+import { axiosRequest } from "../Utils/AxiosRequest";
 
-const urlGetTurnos = "asdasda"
-const getTurnos = (params) => {
-    return axios({
-        method: 'GET',
-        url: urlGetTurnos,
-        crossdomain: true,
-        data: params,    
-        headers: { 
-            "Content-Type": "application/json",
-            "Cache-Control": "no-cache",
-            "Postman-Token": "42e6c291-9a09-c29f-f28f-11872e2490a5"
-        } 
-    })
-}
-
-const urlSaveTurnos = "dfdfdsfsd"
-const saveTurnos = (params) => {
-    return axios({
+const urlSaveTurnos = "http://mapa.mec.gob.ar:3030/turnos"
+export function saveTurnos(dataTurno){
+    console.log("DADASDSDSDSAD", dataTurno)
+    return axiosRequest(urlSaveTurnos, {
         method: 'POST',
-        url: urlSaveTurnos,
-        data: params,    
+        body: JSON.stringify(dataTurno),    
         headers: { 
             "Content-Type": "application/json",
-            "Cache-Control": "no-cache",
-            "Postman-Token": "42e6c291-9a09-c29f-f28f-11872e2490a5"
         } 
-    })
+    }).
+    then(response => response.data)
 }
 
+const urlGetTurnosClient = "http://mapa.mec.gob.ar:3030/turnos/mes"
+export function getTurnosClient(dataTurno){
+    console.log("TURNOS API CLIENT REQUEST", dataTurno)
+    return axiosRequest(urlGetTurnosClient, {
+        method: 'POST',
+        body: JSON.stringify(dataTurno),    
+        headers: { 
+            "Content-Type": "application/json",
+        } 
+    }).
+    then(response => response.data)
+}
 
-export { getTurnos, saveTurnos };
+const urlGetTurnosAdmin = "http://mapa.mec.gob.ar:3030/turnos"
+export function getTurnosAdmin(mes){
+    console.log("MES",mes, sessionStorage.getItem("token"))
+    return axiosRequest(urlGetTurnosAdmin + "/" + mes, {
+        method: 'GET',
+        headers: { 
+            "Authorization": `Bearer ${sessionStorage.getItem("token")}`
+        } 
+    }).
+    then(response => response.data)
+}
+
+const urlGetTurnosSuperAdmin = "http://mapa.mec.gob.ar:3030/turnos/all"
+export function getTurnosSuperAdmin(mes, tipo){
+    console.log("TOKEN MES TIPO", mes, sessionStorage.getItem("token"), tipo)
+    console.log("MES",mes, sessionStorage.getItem("token"))
+    return axiosRequest(urlGetTurnosSuperAdmin + "/" + mes.toString(), {
+        method: 'POST',
+        body: tipo,
+        headers: { 
+            "Authorization": `Bearer ${sessionStorage.getItem("token")}`
+        } 
+    }).
+    then(response => response.data)
+}

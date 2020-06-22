@@ -7,7 +7,6 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import TextField from "@material-ui/core/TextField";
 import ErDni from "../../Utils/ErDni";
-import ErPasaporte from "../../Utils/ErPasaporte";
 import ErSoloNumeros from "../../Utils/ErSoloNumeros";
 import ErEmail from "../../Utils/ErEmail"
 import './Identificacion.css'
@@ -134,7 +133,7 @@ const IdentificacionDni = (props) => {
         />
         : null
       }
-       {
+      {
         visibleFormSignup === "reject" ? 
         <TextField
           name="email"
