@@ -14,7 +14,7 @@ const Selects = (props) => {
             value={value}
             onChange={handleChange}
         >
-            {children.map(item => <MenuItem value={item.value}>{item.option}</MenuItem>)}
+            {children.map(item => <MenuItem value={item}>{item}</MenuItem>)}
         </Select>
     )
 }

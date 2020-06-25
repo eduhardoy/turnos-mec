@@ -1,36 +1,33 @@
-import React, { useState } from 'react'
+import React from 'react'
 import OfficeType from '../Components/Templates/OfficeType/OfficeType'
 import Header from '../Components/Header/Header'
 import StepIndicator from '../Components/Organisms/StepIndicator/StepIndicator'
-import Cards from '../Components/Molecules/Cards/Cards'
 import OfficeTypeSection from '../Components/Organisms/OfficeTypeSection/OfficeTypeSection'
-import TitleBackground from '../titlesBackground.jpg'
-import RRHHBackground from '../rrhhBackground.jpg'
-//import { connect } from 'react-redux'
+import { connect } from 'react-redux'
+import { addShift } from '../Actions/Shift'
 
 
 const OfficeTypeView = (props) => {
-   // const { stepActive } = props
+    const { addShift } = props
 
-    const officeTypeCardData = [
-        <Cards title="RRHH" subtitle="Entrar" backgroundImage={RRHHBackground}>asdasdasdsad</Cards>,
-        <Cards title="Titulos" subtitle="Entrar" backgroundImage={TitleBackground} />,
-    ]
-
-    return <OfficeType header={<Header />} stepIndicator={<StepIndicator stepActive={0} path="/" disabledNextBtn={true} />} OfficeTypeSections={<OfficeTypeSection listOfficeTypeCard={officeTypeCardData} />} />     
+    return <OfficeType header={<Header />} stepIndicator={<StepIndicator stepActive={0} backPath="/" nextPath="/" disabledNextBtn={true} />} OfficeTypeSections={<OfficeTypeSection addShift={addShift} />} />     
 }
 
-/*
+
 const mapStateToProps = state => {
     return {
         stepActive: state.stepActive
     }
 }
 
+const mapDispatchToProps = dispatch => {
+    return {
+        addOffice: office => dispatch(addShift(office))
+    }
+}
 
 export default connect(
-    mapStateToProps
-)(OfficeTypeView);
-*/
+    mapStateToProps,
+    mapDispatchToProps
+)(OfficeTypeView)
 
-export default OfficeTypeView

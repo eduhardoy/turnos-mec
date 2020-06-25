@@ -4,19 +4,18 @@ import ModalHoursAvailables from '../../Organisms/ModalHoursAvailables/ModalHour
 import { getTurnosClient } from '../../../Services/turnos'
 
 const CalendarClientShift = (props) => {
+    const { addDate, addHour, shift, selectedFechaHoraTurno } = props
     const [visibleModal, setVisibleModal] = useState(false)
     const [selectedHora, setSelectedHora] = useState(0)
     const [eventosCalendar, setEventosCalendar] = useState([])
     const [selectedFecha, setSelectedFecha ] = useState(new Date())
     const [ turnosApi, setTurnosApi ] = useState()
     const [horasDisponibles, setHorasDisponibles] = useState(["09:00", "09:30", "10:00", "10:30", "11:00"])
-    const [ horasInicialesDisponibles, setHorasInicialesDisponibles] = useState(["09:00", "09:30", "10:00", "10:30", "11:00"])
+    const horasInicialesDisponibles = ["09:00", "09:30", "10:00", "10:30", "11:00"]
     var myEventsList = []
-    const { changeFechaHoraTurno, selectedFechaHoraTurno, selectedSubTipoTramite } = props
-
     
     useEffect(() => {
-      getTurnosClient({mes: new Date().getMonth() + 1, tipo: "OC"}).
+      getTurnosClient({mes: new Date().getMonth() + 1, tipo: shift.oficina}).
       then(data => {
         colorearTurnosDisponibles(new Date(), data.turnos)
         setTurnosApi(data.turnos)
@@ -30,17 +29,22 @@ const CalendarClientShift = (props) => {
         setVisibleModal(value)
     }
 
+
     const colorearTurnosDisponibles = (fechaCompleta, turnosReservados) => {
+      
       myEventsList = []
       var fechaHoy = fechaCompleta.getDate()
       var ultimaFechaDelMes = new Date(fechaCompleta.getFullYear(), fechaCompleta.getMonth(), 0).getDate() // obtener la ultmima fecha del mes
     //  if(turnosReservados.length === 0){
         for (let index = 2; index <= (ultimaFechaDelMes - fechaHoy); index++) {
+          
           var fechasRestantesMes = new Date(fechaCompleta.getTime() + (24*60*60*1000) * index) // obtener las fechas restantes del mes una por una
           if(fechasRestantesMes.getDay() !== 0 && fechasRestantesMes.getDay() !== 6){ // comprobar que no sea sabado ni domingo
             var event ={}
             if(turnosReservados !== undefined){
+              
               if(!diasOcupados(fechasRestantesMes.getDate(), turnosReservados)){
+                console.log("SELECTD FECHA HORA", selectedFechaHoraTurno)
                 if(selectedFechaHoraTurno.length !== 0){
                   if(selectedFechaHoraTurno.fecha.toLocaleDateString() === fechasRestantesMes.toLocaleDateString()){                   
                      event = { // crear evento
@@ -76,35 +80,24 @@ const CalendarClientShift = (props) => {
               }
               myEventsList.push(event) 
             }
-                
-             
           }
         }
       setEventosCalendar(myEventsList)
     }
 
-    const diasOcupados = (fecha, turnosReservados) => {
-      var flag = false;
-      turnosReservados.forEach((turno) => {
-        if (
-          fecha ===
-          new Date(
-            turno.fecha.split("-")[1] +
-              "/" +
-              turno.fecha.split("-")[0] +
-              "/" +
-              turno.fecha.split("-")[2]
-          ).getDate()
-        ) {
-          if (turno.usuarios.length === 5) {
-            flag = true;
-          } else {
-            flag = false;
+    const diasOcupados = (fecha, turnosReservados) => {  
+      var flag = false
+        turnosReservados.forEach(turno => {
+          if(fecha === new Date(turno.fecha.split("-")[1] + "/" + turno.fecha.split("-")[0] + "/" + turno.fecha.split("-")[2]).getDate()){
+            if(turno.usuarios.length === 5){
+              flag = true
+            }else{
+              flag = false
+            }
           }
-        }
-      });
-      return flag;
-    };
+        });
+        return flag
+    }
 
 
     const eventStyleGetter = (event, start, end, isSelected) => {
@@ -131,7 +124,7 @@ const CalendarClientShift = (props) => {
 
     
     const handleChangeHour = (events) => {
-      changeFechaHoraTurno({ fecha: selectedFecha, hora: events.target.value });
+      addHour({key: "hora", value: events.target.value})
       eventosCalendar.forEach((event) => {
         if (event.start.getDate() === selectedFecha.getDate()) {
           event["title"] = events.target.value;
@@ -144,9 +137,11 @@ const CalendarClientShift = (props) => {
     };
 
     const onSelectEvent = (value) => {
+      addDate({key: "fecha", value: value.start.toLocaleDateString().replace(/[/]/g,"-")})
       setSelectedFecha(value.start);
       var arrayAux = [];
-      if (turnosApi.length !== 0) {
+      if(turnosApi.length !== 0) {
+        console.log(turnosApi)
         var turnoSegunFechaSeleccionada = turnosApi.filter(
           (turno) =>
             parseInt(turno.fecha.split("-")[0]) === value.start.getDate()
@@ -156,21 +151,20 @@ const CalendarClientShift = (props) => {
             var flag = false;
             turnoSegunFechaSeleccionada[0].usuarios.forEach((usuario) => {
               if (hora === usuario.hora) {
-                console.log("HORA USER HORA TRUNOS", usuario.hora, hora);
                 flag = true;
               }
-            });
+            })
             !flag ? arrayAux.push(hora) : console.log("");
           });
           setHorasDisponibles(arrayAux);
         } else {
           setHorasDisponibles(horasInicialesDisponibles);
         }
-      } else {
+      }else {
         setHorasDisponibles(horasInicialesDisponibles);
       }
-      setVisibleModal(true);
-    };
+      setVisibleModal(true)
+    }
 
    
     const onRangeChange = (value) => {
@@ -193,7 +187,7 @@ const CalendarClientShift = (props) => {
             <Calendars
                 onSelectEvent={onSelectEvent}
                 onRangeChange={onRangeChange}
-                eventsLists={eventosCalendar}
+                eventLists={eventosCalendar}
                 eventStyle={eventStyleGetter}
             />
         </React.Fragment>

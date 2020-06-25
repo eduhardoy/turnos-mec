@@ -21,13 +21,13 @@ export default function PanelExpansion(props) {
     return (
         <ExpansionPanel>
             <ExpansionPanelSummary
-          
-            //aria-controls="panel1a-content"
+         //   expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel1a-content"
             id="panel1a-header"
             >
             <FormControlLabel
-               // aria-label="Acknowledge"
-               // onClick={(event) => event.stopPropagation()}
+                aria-label="Acknowledge"
+                onClick={(event) => event.stopPropagation()}
                 onFocus={(event) => event.stopPropagation()}
                 control={
                 <Checkbox
@@ -40,8 +40,11 @@ export default function PanelExpansion(props) {
                 }
                 label={title}
             />
-       
+            <Text className={classes.heading}></Text>
             </ExpansionPanelSummary>
+           {/* <ExpansionPanelDetails>
+            <Text>{children}</Text>
+            </ExpansionPanelDetails> */}
         </ExpansionPanel>
   );
 }
@@ -52,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
   },
   heading: {
-  //  fontSize: theme.typography.pxToRem(15),
-    //fontWeight: theme.typography.fontWeightRegular,
+    fontSize: theme.typography.pxToRem(15),
+    fontWeight: theme.typography.fontWeightRegular,
   },
 }));

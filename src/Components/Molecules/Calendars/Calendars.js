@@ -5,14 +5,14 @@ const localizer = momentLocalizer(moment)
 
 
 const Calendars = (props) => {
-    const { eventsLists, onChangeRange, onSelectEvent, eventStyle  } = props
-
+    const { eventLists, onChangeRange, onSelectEvent, eventStyle  } = props
+  console.log(eventLists, "EVENTL LIST")
     return (
       <Calendar
         onRangeChange={onChangeRange}
         views={["month"]}
         localizer={localizer}
-        events={eventsLists}
+        events={eventLists}
         startAccessor="start"
         endAccessor="end"
         style={{ height: 500 }}

@@ -7,6 +7,7 @@ import OfficeTypeView from './Views/OfficeTypeView'
 import SubOfficeTypeView from './Views/SubOfficeTypeView'
 import DateTimeClientShiftView from './Views/DateTimeClientShiftView' 
 import ModalityClarificationsClientView from './Views/ModalityClarificationsClientView'
+import CategoriesPaperworksView from './Views/CategoriespaperworksView.js'
 import configureStore from './Store/ConfigureStore'
 import {
   BrowserRouter as Router,
@@ -17,7 +18,7 @@ import {
 const initialState = {
   stepActive: 0,
   user : {},
-  shift: {}
+  shift: { modalidad: "presencial", aclaraciones: "" }
 }
 
 const store = configureStore(initialState)
@@ -48,6 +49,9 @@ function App() {
             </Route>
             <Route path="/modalityshift">
               <ModalityClarificationsClientView />
+            </Route>
+            <Route path="/categoriespaperworks/:id">
+              <CategoriesPaperworksView />
             </Route>
             <Route path="/admin">
               <Admin />

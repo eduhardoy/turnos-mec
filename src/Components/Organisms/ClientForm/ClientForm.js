@@ -9,7 +9,7 @@ import regexEmail from '../../../Utils/RegexEmail'
 import { clientLogin, clientSignUp } from '../../../Services/users'
 
 const ClientForm = (props) => {
-    const { validAuth, setValidAuth } = props
+    const { validAuth, setValidAuth, addCuit } = props
     const [ showFormSignUp, setShowFormSignUp ] = useState(false)
     const [ cuitNumber, setCuitNumber ] = useState("")
     const [ clientName, setClientName ] = useState("")
@@ -33,6 +33,7 @@ const ClientForm = (props) => {
                     clientLogin({dni : docNumber.toString()}).
                     then((data) => {
                         if(data){
+                            addCuit({key: "cuit", value: docNumber.toString()})
                             setValidAuth(true)
                         }else{
                             setValidAuth(false)

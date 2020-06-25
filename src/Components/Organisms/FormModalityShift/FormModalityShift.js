@@ -1,36 +1,34 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import TextField from '@material-ui/core/TextField';
-//import { modalidadAclaracion } from '../../Actions/ModalidadAclaracion'
+
 
 const FormModalityShift = (props) => {
-    const [modalidad, setModalidad] = React.useState('presencial');
-    const [aclaraciones, setAclaraciones] = React.useState('')
-    //const { addModalidadAclaracion, modalidadAclaracion } = props
-    
+    const { addModality, addClarifications } = props
+    const [modality, setModality] = useState('presencial')
+
     const handleChange = (event) => {
         if(event.target.name === "modalidad"){
-            setModalidad(event.target.value)
-            //addModalidadAclaracion({modalidad: event.target.value, aclaraciones: aclaraciones})
+          setModality(event.target.value)
+          addModality({key: "modalidad", value: event.target.value})    
         }else{
-            setAclaraciones(event.target.value)
-            //addModalidadAclaracion({modalidad: modalidad, aclaraciones: aclaraciones})
+          addClarifications({key: "aclaraciones", value: event.target.value})
         }
-    };
+    }
 
     return (
       <FormControl component="fieldset">
         <FormLabel component="legend">
-          Cómo querés que sea la atención?{" "}
+          Cómo querés que sea la atención?
         </FormLabel>
         <RadioGroup
           aria-label="gender"
           name="modalidad"
-          value={modalidad}
+          value={modality}
           onChange={handleChange}
         >
           <FormControlLabel

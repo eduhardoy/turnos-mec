@@ -15,7 +15,7 @@ import { Link } from "react-router-dom"
 
 const Cards = (props) => {
     const [expanded, setExpanded] = useState(false);
-    const { title, subtitle, onClick, backgroundImage, children } = props
+    const { title, subtitle, onClick, backgroundImage, path, children } = props
     const classes = useStyles();
 
     const handleExpandClick = () => {
@@ -25,7 +25,7 @@ const Cards = (props) => {
     return (
       <Card>
         <CardHeader title={title} onClick={onClick} />
-        <Link to={"/subOffice/" + title}>
+        <Link to={path + "/" + title}>
           <CardMedia
             className={classes.media}
             image={backgroundImage}
