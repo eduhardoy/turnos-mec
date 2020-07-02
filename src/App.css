@@ -7,6 +7,15 @@
   pointer-events: none;
 }
 
+a{
+  text-decoration: none;
+}
+
+a:visited{
+  color: white
+}
+
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;

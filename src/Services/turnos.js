@@ -1,9 +1,28 @@
 import { axiosRequest } from "../Utils/AxiosRequest";
+import { gql } from "apollo-boost";
 
-const urlSaveTurnos = "http://mapa.mec.gob.ar:3030/turnos"
-export function saveTurnos(dataTurno){
-    console.log("DADASDSDSDSAD", dataTurno)
-    return axiosRequest(urlSaveTurnos, {
+
+export const SaveShift = gql`
+mutation SaveShift($aclaraciones: String!, $fecha: String!, $hora: String!, $modalidad: enumModalidad!, $direccion: enumDirecciones!, $cuit: String!, $data: JSON!) {
+    ReservarTurno(data: {aclaraciones: $aclaraciones, fecha: $fecha, hora: $hora, modalidad: $modalidad, direccion: $direccion, cuit: $cuit, data: $data})
+  }
+`
+
+export const GetShift = gql`
+  query GetShift($mes: String!, $direccion: String!) {
+    ListarTurnosReservadosCliente(data: { mes: $mes, direccion: $direccion })
+  }
+`
+
+export const GetShiftAdmin = gql`
+  query GetShiftAdmin($mes: String!) {
+    ListarTurnosReservados(data: { mes: $mes })
+  }
+`
+/*
+const urlSaveShift = "http://mapa.mec.gob.ar:3030/turnos"
+export function SaveShift(dataTurno){
+    return axiosRequest(urlSaveShift, {
         method: 'POST',
         body: JSON.stringify(dataTurno),    
         headers: { 
@@ -11,7 +30,7 @@ export function saveTurnos(dataTurno){
         } 
     }).
     then(response => response.data)
-}
+}*/
 
 const urlGetTurnosClient = "http://mapa.mec.gob.ar:3030/turnos/mes"
 export function getTurnosClient(dataTurno){
@@ -27,9 +46,8 @@ export function getTurnosClient(dataTurno){
 }
 
 const urlGetTurnosAdmin = "http://mapa.mec.gob.ar:3030/turnos"
-export function getTurnosAdmin(mes){
-    console.log("MES",mes, sessionStorage.getItem("token"))
-    return axiosRequest(urlGetTurnosAdmin + "/" + mes, {
+export function getTurnosAdmin(mes, direccion){
+    return axiosRequest(urlGetTurnosAdmin + "/" + mes + "/" + direccion, {
         method: 'GET',
         headers: { 
             "Authorization": `Bearer ${sessionStorage.getItem("token")}`

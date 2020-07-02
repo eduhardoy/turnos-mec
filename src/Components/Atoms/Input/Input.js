@@ -3,13 +3,13 @@ import TextField from "@material-ui/core/TextField";
 
 
 const Inputs = (props) => {
-    const { value, name, label, handleChange } = props
+    const { value, name, label, onChange } = props
 
     return (
         <TextField
           name={name}
           label={label}
-          onChange={handleChange}
+          onChange={onChange}
           value={value}
         />
     )

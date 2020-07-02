@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid';
 
 
 const IdentificactionClient = (props) => {
-    const { header, stepIndicator, clientForm } = props
+    const { header, title, stepIndicator, clientForm } = props
 
     return (
         <div style={styles.root}>
@@ -14,6 +14,9 @@ const IdentificactionClient = (props) => {
             <Container>
                 <Grid xl={12} lg={12} md={12} sm={12} xs={12} justify="center" alignItems="center" style={styles.gridStepper}>
                     {stepIndicator}
+                </Grid>
+                <Grid style={styles.gridTitle} >
+                    {title}
                 </Grid>
                 <Grid xl={4} lg={4} md={6} sm={12} xs={12} justify="center" alignItems="center" style={styles.gridForm}>
                     {clientForm}
@@ -30,6 +33,9 @@ const styles = {
     },
     gridStepper: {
         margin: "auto"
+    },
+    gridTitle: {
+        marginTop: "2%"
     },
     gridForm: {
         backgroundColor: "white",

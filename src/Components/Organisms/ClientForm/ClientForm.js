@@ -2,16 +2,19 @@ import React, { useState, useEffect } from 'react'
 import FormControl from '@material-ui/core/FormControl'
 import Input from '../../Atoms/Input/Input'
 import Button from "@material-ui/core/Button";
+import clientApolo from '../../../Utils/ApoloClient'
+import { loginComun, registroUsuarioComun } from '../../../Services/users'
 import { makeStyles } from '@material-ui/core/styles'
 import regexNumber from '../../../Utils/RegexNumber'
-import regexDni from '../../../Utils/RegexDni'
+import { regexCuit, regexDni } from '../../../Utils/RegexDni'
 import regexEmail from '../../../Utils/RegexEmail'
-import { clientLogin, clientSignUp } from '../../../Services/users'
+
 
 const ClientForm = (props) => {
-    const { validAuth, setValidAuth, addCuit } = props
+    const { setValidAuth, addCuit } = props
     const [ showFormSignUp, setShowFormSignUp ] = useState(false)
     const [ cuitNumber, setCuitNumber ] = useState("")
+    const [ dniNumber, setDniNumber ] = useState("")
     const [ clientName, setClientName ] = useState("")
     const [ clientLastName, setClientLastName ] = useState("")
     const [ clientEmail, setClientEmail ] = useState("")
@@ -21,47 +24,59 @@ const ClientForm = (props) => {
 
     useEffect(() => {
         validateRegistrationField()
-    }, [clientName, clientLastName, clientTelephone, clientEmail])
+    }, [ dniNumber, clientName, clientLastName, clientTelephone, clientEmail])
 
     const handleChange = (event) => {
-        event.target.name === "selectDocumentotype" && setCuitNumber(event.target.value)
         if(event.target.name === "inputDocumentNumber"){
             if(regexNumber(event.target.value) || regexNumber(event.target.value) === undefined){
                 setCuitNumber(event.target.value)
-                if(regexDni(event.target.value)){
+                if(regexCuit(event.target.value)){
                     var docNumber = event.target.value
-                    clientLogin({dni : docNumber.toString()}).
-                    then((data) => {
-                        if(data){
-                            addCuit({key: "cuit", value: docNumber.toString()})
-                            setValidAuth(true)
-                        }else{
-                            setValidAuth(false)
-                            setShowFormSignUp(true)
-                        }
-                    }).
-                    catch(err => {
-                        console.log("ERROR", err)
+                    clientApolo.query({
+                      query: loginComun, 
+                      variables: {cuit: docNumber.toString()}
+                    })
+                    .then((data) => {
+                      if(data.data.LoginUsuarioComun){
+                        addCuit({key: "cuit", value: docNumber.toString()})
+                        setValidAuth(true)
+                    }else{
+                        setValidAuth(false)
+                        setShowFormSignUp(true)
+                    }
+                    })
+                    .catch((error) => {
+                      console.log("ERROR", error)
                     })
                 }
             }
         }
+        event.target.name === "dniNumber" && setDniNumber(event.target.value)
+        event.target.name === "name" && setClientName(event.target.value)
+        event.target.name === "lastName" && setClientLastName(event.target.value)
+        event.target.name === "telephone" && setClientTelephone(event.target.value)
+        event.target.name === "email" && setClientEmail(event.target.value)   
     }
 
     const checkIn = () => {
-        clientSignUp({dni: cuitNumber.toString(), nombre: clientName, apellido: clientLastName, telefono: clientTelephone.toString(), email: clientEmail.toString() })
-        .then((result) => {
-            if(result.dni !== undefined){
-                setValidAuth(true)
-            }else{
-                setValidAuth(false)
-            }
-        })
+      clientApolo.mutate({
+        mutation: registroUsuarioComun,
+        variables: {cuit: cuitNumber.toString(), dni: dniNumber.toString(),  nombre: clientName, apellido: clientLastName, telefono: clientTelephone.toString(), correo: clientEmail.toString() }
+      })
+      .then((data) => {
+        if(data.data.RegistrarUsuarioComun.cuit !== undefined){
+          setValidAuth(true)
+        }else{
+          setValidAuth(false)
+        }
+      })
     }
 
     const validateRegistrationField = () => {
-        if(clientName !== "" && clientLastName !== "" && clientTelephone !== "" && regexEmail(clientEmail)){
+        if(regexDni(dniNumber) && clientName !== "" && clientLastName !== "" && clientTelephone !== "" && regexEmail(clientEmail)){
             setDisbaledSignUpBtn(false)
+        }else{
+          setDisbaledSignUpBtn(true)
         }
     }
 
@@ -71,8 +86,16 @@ const ClientForm = (props) => {
           value={cuitNumber}
           name="inputDocumentNumber"
           label="Ingresá tu número de CUIT"
-          handleChange={handleChange}
+          onChange={handleChange}
         />
+         {showFormSignUp ? (
+          <Input
+            name="dniNumber"
+            label={"DNI sin puntos"}
+            onChange={handleChange}
+            value={dniNumber}
+          />
+        ) : null}
         {showFormSignUp ? (
           <Input
             name="name"

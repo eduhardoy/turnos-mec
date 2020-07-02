@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import Calendars from '../../Molecules/Calendars/Calendars'
 import ModalHoursAvailables from '../../Organisms/ModalHoursAvailables/ModalHoursAvailables'
-import { getTurnosClient } from '../../../Services/turnos'
+import clientApolo from '../../../Utils/ApoloClient'
+import { GetShift } from '../../../Services/turnos'
 
 const CalendarClientShift = (props) => {
     const { addDate, addHour, shift, selectedFechaHoraTurno } = props
@@ -15,14 +16,17 @@ const CalendarClientShift = (props) => {
     var myEventsList = []
     
     useEffect(() => {
-      getTurnosClient({mes: new Date().getMonth() + 1, tipo: shift.oficina}).
-      then(data => {
-        colorearTurnosDisponibles(new Date(), data.turnos)
-        setTurnosApi(data.turnos)
-      }).
-      catch(err => {
+      clientApolo.query({
+        query: GetShift, 
+        variables: {mes: (new Date().getMonth() + 1).toString(), direccion: shift.direccion}
       })
-      //colorearTurnosDisponibles(new Date())
+      .then((resultShift) => {
+        colorearTurnosDisponibles(new Date(), resultShift.data.ListarTurnosReservadosCliente)
+        setTurnosApi(resultShift.data.ListarTurnosReservadosCliente)
+      })
+      .catch((error) => {
+        console.log("ERROR", error)
+      })
     }, [])
 
     const hideShowModal = (value) => {
@@ -31,7 +35,7 @@ const CalendarClientShift = (props) => {
 
 
     const colorearTurnosDisponibles = (fechaCompleta, turnosReservados) => {
-      
+      console.log("FECHA TRUNOS", turnosReservados)
       myEventsList = []
       var fechaHoy = fechaCompleta.getDate()
       var ultimaFechaDelMes = new Date(fechaCompleta.getFullYear(), fechaCompleta.getMonth(), 0).getDate() // obtener la ultmima fecha del mes
@@ -44,14 +48,13 @@ const CalendarClientShift = (props) => {
             if(turnosReservados !== undefined){
               
               if(!diasOcupados(fechasRestantesMes.getDate(), turnosReservados)){
-                console.log("SELECTD FECHA HORA", selectedFechaHoraTurno)
-                if(selectedFechaHoraTurno.length !== 0){
-                  if(selectedFechaHoraTurno.fecha.toLocaleDateString() === fechasRestantesMes.toLocaleDateString()){                   
+                if(shift.hora !== undefined){
+                  if(selectedFecha.toLocaleDateString() === fechasRestantesMes.toLocaleDateString()){                   
                      event = { // crear evento
                       allDay: true,
                       end: fechasRestantesMes,
                       start: fechasRestantesMes,
-                      title: selectedFechaHoraTurno.hora,
+                      title: shift.hora,
                     }
                   }else{
                      event = { // crear evento
@@ -141,7 +144,6 @@ const CalendarClientShift = (props) => {
       setSelectedFecha(value.start);
       var arrayAux = [];
       if(turnosApi.length !== 0) {
-        console.log(turnosApi)
         var turnoSegunFechaSeleccionada = turnosApi.filter(
           (turno) =>
             parseInt(turno.fecha.split("-")[0]) === value.start.getDate()
@@ -167,17 +169,38 @@ const CalendarClientShift = (props) => {
     }
 
    
-    const onRangeChange = (value) => {
-      var mesEnPantalla
+    const handleRangeChange = (value) => {
+      var date 
+
       if(value.start.getDate() !== 1){// si el calendario en pantalla no inicia con la fecha 1 entonces se le suma un mes
-        mesEnPantalla = value.start.getMonth() + 1 
+        date = new Date(value.start.getFullYear(), value.start.getMonth() + 1, "1")
       }else{
-        mesEnPantalla = value.start.getMonth()// sino queda el mes actual
+        date = new Date(value.start.getFullYear(), value.start.getMonth(), "1")
       }
-      if(new Date().getMonth() === mesEnPantalla){// si el mes que esta en patnalla es el mes actual entonces se pasa la fecha completa actual
-        colorearTurnosDisponibles(new Date())
+      if(new Date().getMonth() === date.getMonth()){// si el mes que esta en patnalla es el mes actual entonces se pasa la fecha completa actual
+        clientApolo.query({
+          query: GetShift, 
+          variables: {mes: (new Date().getMonth() + 1).toString(), direccion: shift.direccion}
+        })
+        .then((resultShift) => {
+          colorearTurnosDisponibles(new Date(), resultShift.data.ListarTurnosReservadosCliente)
+          setTurnosApi(resultShift.data.ListarTurnosReservadosCliente)
+        })
+        .catch((error) => {
+          console.log("ERROR", error)
+        })
       }else{//enviarle la fecha completa siempre con el primer dia del mes
-        colorearTurnosDisponibles(new Date(value.start.getFullYear(), mesEnPantalla, 1))
+        clientApolo.query({
+          query: GetShift, 
+          variables: {mes: (new Date().getMonth() + 1).toString(), direccion: shift.direccion}
+        })
+        .then((resultShift) => {
+          colorearTurnosDisponibles(date, resultShift.data.ListarTurnosReservadosCliente)
+          setTurnosApi(resultShift.data.ListarTurnosReservadosCliente)
+        })
+        .catch((error) => {
+          console.log("ERROR", error)
+        })
       }
     }
 
@@ -186,7 +209,7 @@ const CalendarClientShift = (props) => {
             <ModalHoursAvailables isVisible={visibleModal} hoursAvailables={horasDisponibles} handleChangeHour={handleChangeHour} selectedTime={selectedHora} />
             <Calendars
                 onSelectEvent={onSelectEvent}
-                onRangeChange={onRangeChange}
+                onRangeChange={handleRangeChange}
                 eventLists={eventosCalendar}
                 eventStyle={eventStyleGetter}
             />

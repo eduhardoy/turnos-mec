@@ -19,7 +19,6 @@ const SubOfficeTypeSections = (props) => {
     }, [subOfficeSelectd])
 
     const handleChange = (event) => {
-      console.log("RADIO BUT", event.target.value)
       setSubOfficeSelected(event.target.value)
     } 
 

@@ -5,7 +5,7 @@ export default (state = {}, action) => {
         case actionTypes.ADD_SHIFT:
             return {...state, [action.payload.key] : action.payload.value}
         case actionTypes.DELETE_SHIFT:
-            return action.payload
+            return { modalidad: "Presencial", aclaraciones: "" }
         default:
             return state
     }

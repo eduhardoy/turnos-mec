@@ -3,24 +3,24 @@ import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
+import { Link } from "react-router-dom"
+import { makeStyles } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
+import './Cards.css'
+/*import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import CardActions from "@material-ui/core/CardActions";
 import Collapse from "@material-ui/core/Collapse";
 import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import clsx from "clsx";
-import { makeStyles } from "@material-ui/core/styles";
-import { red } from "@material-ui/core/colors";
-import { Link } from "react-router-dom"
+import clsx from "clsx";*/
 
 const Cards = (props) => {
-    const [expanded, setExpanded] = useState(false);
-    const { title, subtitle, onClick, backgroundImage, path, children } = props
+    //const [expanded, setExpanded] = useState(false);
+    const { title, subtitle, onClick, backgroundImage, path, /*children*/ } = props
     const classes = useStyles();
 
-    const handleExpandClick = () => {
+   /* const handleExpandClick = () => {
         setExpanded(!expanded);
-    };
+    };*/
     
     return (
       <Card>
@@ -29,7 +29,7 @@ const Cards = (props) => {
           <CardMedia
             className={classes.media}
             image={backgroundImage}
-            title="Registrar Títulos"
+            title={title}
             onClick={onClick}
           />
           <CardContent onClick={onClick}>
@@ -38,7 +38,7 @@ const Cards = (props) => {
             </Typography>
           </CardContent>
         </Link>
-        <CardActions disableSpacing>
+      {  /*<CardActions disableSpacing>
           <IconButton
             className={clsx(classes.expand, {
               [classes.expandOpen]: expanded,
@@ -53,7 +53,7 @@ const Cards = (props) => {
         </CardActions>
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <CardContent>{children}</CardContent>
-        </Collapse>
+          </Collapse>*/}
       </Card>
     );
 }
@@ -67,8 +67,8 @@ const useStyles = makeStyles((theme) => ({
     media: {
       height: 0,
       paddingTop: "56.25%", // 16:9
-    },
-    expand: {
+    }
+   /* expand: {
       transform: "rotate(0deg)",
       marginLeft: "auto",
       fontSize: 14,
@@ -81,7 +81,7 @@ const useStyles = makeStyles((theme) => ({
     },
     avatar: {
       backgroundColor: red[500],
-    },
+    },*/
   }));
 
 

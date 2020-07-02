@@ -4,8 +4,8 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 import Grid from '@material-ui/core/Grid'
 
 
-const CategoriesPaperworks = (props) => {
-    const { header, stepIndicator, listCategoriesPaperworks } = props
+const PaperworksPersonalDepart = (props) => {
+    const { header, title, stepIndicator, listPaperworksPersonalDepart } = props
 
     return (
         <div style={styles.root}>
@@ -17,8 +17,11 @@ const CategoriesPaperworks = (props) => {
                 <Grid style={styles.gridStepIndicator}>
                     {stepIndicator}
                 </Grid>
+                <Grid style={styles.gridTitle} >
+                    {title}
+                </Grid>
                 <Grid container>
-                    {listCategoriesPaperworks}
+                    {listPaperworksPersonalDepart}
                 </Grid>                   
             </Container>
         </div>   
@@ -30,6 +33,9 @@ const styles = {
     root: {
         flexGrow: 1,
     },
+    gridTitle: {
+        marginTop: "2%"
+    },
     gridStepIndicator: {
         width: "100%",
         height: "auto",
@@ -37,4 +43,4 @@ const styles = {
 }
 
 
-export default CategoriesPaperworks
+export default PaperworksPersonalDepart

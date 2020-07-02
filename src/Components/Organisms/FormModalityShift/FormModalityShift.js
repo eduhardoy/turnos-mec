@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -8,13 +8,13 @@ import TextField from '@material-ui/core/TextField';
 
 
 const FormModalityShift = (props) => {
-    const { addModality, addClarifications } = props
-    const [modality, setModality] = useState('presencial')
+    const { shift, addModality, addClarifications } = props
+    const [ modality, setModality ] = useState('Presencial')
 
     const handleChange = (event) => {
         if(event.target.name === "modalidad"){
           setModality(event.target.value)
-          addModality({key: "modalidad", value: event.target.value})    
+          addModality({key: "modalidad", value: event.target.value})          
         }else{
           addClarifications({key: "aclaraciones", value: event.target.value})
         }
@@ -32,12 +32,13 @@ const FormModalityShift = (props) => {
           onChange={handleChange}
         >
           <FormControlLabel
-            value="presencial"
+            value="Presencial"
             control={<Radio />}
             label="En persona"
           />
           <FormControlLabel
-            value="telefono"
+            disabled={shift.direccion === "OficinaCentral" || shift.direccion === "CertificacionesDeServicio" ? false : true}
+            value="Telefono"
             control={<Radio />}
             label="Llamada telefónica"
           />

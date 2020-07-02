@@ -10,18 +10,20 @@ import { addShift } from '../Actions/Shift'
 
 
 const SubOfficeTypeView = (props) => {
-    const { addOffice, shift } = props
+    //const { addOffice, shift } = props
     //let { id } = useParams();
-    console.log("SHIFT", shift)
+
     useEffect(() => {
         //get to api subOfficeType by id params
     }, [])
 
-    return <SubOfficeType header={<Header />} stepIndicator={<StepIndicator addStepActive={0} backPath="/" nextPath="/identification" disabledNextBtn={false} />} subOfficeTypeSections={<SubOfficeTypeSections addOffice={addOffice} />} />     
+    return <SubOfficeType header={<Header />} stepIndicator={<StepIndicator addStepActive={0} backPath="/" nextPath="/identification" disabledNextBtn={false} />} subOfficeTypeSections={<SubOfficeTypeSections />} />     
 }
 
 
+export default SubOfficeTypeView
 
+/*
 const mapStateToProps = state => {
     return {
         shift: state.shift
@@ -37,4 +39,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(SubOfficeTypeView);
+)(SubOfficeTypeView);*/

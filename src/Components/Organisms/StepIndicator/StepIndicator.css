@@ -11,6 +11,10 @@
     background-color: #7fb850 !important;
 }
 
+.MuiStepIcon-root.MuiStepIcon-completed {
+    color: #7fb850 !important;
+}
+
 @media (max-width: 767px){
     .MuiStepLabel-labelContainer{
         display: none;

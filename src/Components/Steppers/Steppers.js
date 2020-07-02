@@ -35,7 +35,6 @@ const Steppers = (props) => {
         validateDniPassport("")
         setDisabledBtnNext(false)
        }else if(dniPassportValid === "validSignup"){
-         console.log("ENTRAAAA")
          setDisabledBtnNext(false)
        }else{
         setDisabledBtnNext(true)

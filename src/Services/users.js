@@ -1,5 +1,28 @@
 import { axiosRequest } from "../Utils/AxiosRequest";
+import { gql } from "apollo-boost";
 
+
+export const loginComun = gql`
+  query Login($cuit: String!) {
+    LoginUsuarioComun(data: { cuit: $cuit })
+  }
+`
+
+export const LoginAdmin = gql`
+  query LoginAdmin($cuit: String!, $contrasena: String!) {
+    LoginUsuarioNoComun(data: { cuit: $cuit, contrasena: $contrasena }){
+        nombre
+    }
+  }
+`
+
+export const registroUsuarioComun = gql`
+mutation Registro($cuit: String!, $dni: String!, $nombre: String!, $apellido: String!, $correo: String!, $telefono: String!) {
+    RegistrarUsuarioComun(data: {cuit: $cuit , dni:$dni, nombre: $nombre, apellido: $apellido, correo: $correo, telefono: $telefono}) {
+      cuit
+    }
+  }
+`
 
 const urlAuthClient = "http://mapa.mec.gob.ar:3030/auth/validar"
 export function clientLogin(dni){

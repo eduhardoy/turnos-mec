@@ -2,12 +2,24 @@ import React from 'react';
 import './App.css';
 import { Provider } from 'react-redux'
 import IdentificactionClientView from './Views/IdentificactionClientView'
-import Admin from './Views/Admin'
+import AdminLogin from './Views/AdminLogin'
+import AdminRrhh from './Views/AdminRrhh'
+import AdminRrhhCenterOf from './Views/AdminRrhhCenterOf'
+import AdminRrhhCenterDepart from './Views/AdminRrhhCenterDepart'
+import AdminRrhhServicesCert from './Views/AdminRrhhServicesCert'
+import AdminDisepa from './Views/AdminDisepa'
+import AdminDigep from './Views/AdminDigep'
+import AdminSecondaryLevel from './Views/AdminSecondaryLevel'
 import OfficeTypeView from './Views/OfficeTypeView'
-import SubOfficeTypeView from './Views/SubOfficeTypeView'
 import DateTimeClientShiftView from './Views/DateTimeClientShiftView' 
 import ModalityClarificationsClientView from './Views/ModalityClarificationsClientView'
-import CategoriesPaperworksView from './Views/CategoriespaperworksView.js'
+import PaperworksDisepaView from './Views/PaperworksDisepaView'
+import RoleDisepaView from './Views/RoleDisepaView'
+import PaperworksSecondaryLevelView from './Views/PaperworksSecondaryLevelView'
+import RoleSecondaryLevelView from './Views/RoleSecondaryLevelView'
+import PaperworksDigepView from './Views/PaperworksDigepView'
+import PaperworksPersonalDepartView from './Views/PaperworksPersonalDepartView'
+import ConfirmationOrErrorView from './Views/ConfirmationOrErrorView'
 import configureStore from './Store/ConfigureStore'
 import {
   BrowserRouter as Router,
@@ -18,7 +30,7 @@ import {
 const initialState = {
   stepActive: 0,
   user : {},
-  shift: { modalidad: "presencial", aclaraciones: "" }
+  shift: { modalidad: "Presencial", aclaraciones: "" }
 }
 
 const store = configureStore(initialState)
@@ -32,15 +44,6 @@ function App() {
             <Route path="/" exact>
               <OfficeTypeView />
             </Route>
-            <Route path="/subOffice/:id">
-              <SubOfficeTypeView />
-            </Route>
-            <Route path="/admin">
-              <Admin />
-            </Route>
-            <Route path="/admin">
-              <Admin />
-            </Route>DateTimeClientShiftView
             <Route path="/identification">
               <IdentificactionClientView />
             </Route>
@@ -50,11 +53,50 @@ function App() {
             <Route path="/modalityshift">
               <ModalityClarificationsClientView />
             </Route>
-            <Route path="/categoriespaperworks/:id">
-              <CategoriesPaperworksView />
+            <Route path="/paperworksdisepa">
+              <PaperworksDisepaView />
             </Route>
-            <Route path="/admin">
-              <Admin />
+            <Route path="/roledisepa">
+              <RoleDisepaView />
+            </Route>
+            <Route path="/paperworkssecondary">
+              <PaperworksSecondaryLevelView />
+            </Route>
+            <Route path="/rolesecondary">
+              <RoleSecondaryLevelView />
+            </Route>
+            <Route path="/paperworksdigep">
+              <PaperworksDigepView />
+            </Route>
+            <Route path="/recorddeptopersonal">
+              <PaperworksPersonalDepartView />
+            </Route>
+            <Route path="/confirmationerror">
+              <ConfirmationOrErrorView />
+            </Route>
+            <Route path="/login">
+              <AdminLogin />
+            </Route>
+            <Route path="/admin/rrhh">
+              <AdminRrhh />
+            </Route>
+            <Route path="/admin/centeroffice">
+              <AdminRrhhCenterOf />
+            </Route>
+            <Route path="/admin/centerdepart">
+              <AdminRrhhCenterDepart />
+            </Route>
+            <Route path="/admin/servicescert">
+              <AdminRrhhServicesCert />
+            </Route>
+            <Route path="/admin/disepa">
+              <AdminDisepa />
+            </Route>
+            <Route path="/admin/digep">
+              <AdminDigep />
+            </Route>
+            <Route path="/admin/secondarylevel">
+              <AdminSecondaryLevel />
             </Route>
           </Switch>
         </Router>
