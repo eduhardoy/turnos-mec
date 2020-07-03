@@ -80,22 +80,22 @@ function App() {
             <Route path="/admin/rrhh">
               <AdminRrhh />
             </Route>
-            <Route path="/admin/centeroffice">
+            <Route path="/admin/centeroffice/:role">
               <AdminRrhhCenterOf />
             </Route>
-            <Route path="/admin/centerdepart">
+            <Route path="/admin/centerdepart/:role">
               <AdminRrhhCenterDepart />
             </Route>
-            <Route path="/admin/servicescert">
+            <Route path="/admin/servicescert/:role">
               <AdminRrhhServicesCert />
             </Route>
-            <Route path="/admin/disepa">
+            <Route path="/admin/disepa/:role">
               <AdminDisepa />
             </Route>
             <Route path="/admin/digep">
               <AdminDigep />
             </Route>
-            <Route path="/admin/secondarylevel">
+            <Route path="/admin/secondarylevel/:role">
               <AdminSecondaryLevel />
             </Route>
           </Switch>

@@ -11,7 +11,8 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import { getTurnosAdmin, getTurnosSuperAdmin } from '../Services/turnos'
-
+import clientApolo from '../Utils/ApoloClient'
+import { GetShiftAdmin } from '../Services/turnos'
 
 export default function AdminRrhh() {
     const [visibleModal, setVisibleModal] = useState(false)
@@ -25,16 +26,21 @@ export default function AdminRrhh() {
     useEffect(() => {
 
       setTimeout(() => {
-        getTurnosAdmin((parseInt(new Date().getMonth()) + 1).toString()).
-        then(data => {
-          data.turnos.forEach(turno => {
+        clientApolo.query({
+          query: GetShiftAdmin, 
+          variables: {mes: (new Date().getMonth() + 1).toString()}
+        })
+        .then((resultShift) => {
+          console.log("SHIFT", resultShift)
+          resultShift.turnos.forEach(turno => {
             turno["title"] = turno.usuarios.length.toString()  
             turno["start"] = new Date(turno.fecha.split("-")[1] + "/" + turno.fecha.split("-")[0] + "/" + turno.fecha.split("-")[2])
             turno["end"] = new Date(turno.fecha.split("-")[1] + "/" + turno.fecha.split("-")[0] + "/" + turno.fecha.split("-")[2])
           });
-          setTurnosReservados(data.turnos)
-        }).
-        catch(err => {
+          setTurnosReservados(resultShift.turnos)
+        })
+        .catch((error) => {
+          console.log("ERROR", error)
         })
       }, 1000);
        
@@ -87,30 +93,38 @@ export default function AdminRrhh() {
     const changeRangeCalendar = (event) => {
      if (event.start.getDate() !== 1) {
       setMesEnCalendario((event.start.getMonth() + 2).toString())
-       getTurnosAdmin((event.start.getMonth() + 2).toString())
-         .then((data) => {
-          data.turnos.forEach(turno => {
-            turno["title"] = turno.usuarios.length.toString()
-            turno["start"] = new Date(turno.fecha.split("-")[1] + "/" + turno.fecha.split("-")[0] + "/" + turno.fecha.split("-")[2])
-            turno["end"] = new Date(turno.fecha.split("-")[1] + "/" + turno.fecha.split("-")[0] + "/" + turno.fecha.split("-")[2])
-          });
-          setTurnosReservados(data.turnos)
-         })
-         .catch((err) => {
-           console.log("ERROR", err)
-         });
+      clientApolo.query({
+        query: GetShiftAdmin, 
+        variables: {mes: (new Date().getMonth() + 2).toString()}
+      })
+      .then((resultShift) => {
+        console.log("SHIFT ADMIN", resultShift)
+        resultShift.turnos.forEach(turno => {
+          turno["title"] = turno.usuarios.length.toString()  
+          turno["start"] = new Date(turno.fecha.split("-")[1] + "/" + turno.fecha.split("-")[0] + "/" + turno.fecha.split("-")[2])
+          turno["end"] = new Date(turno.fecha.split("-")[1] + "/" + turno.fecha.split("-")[0] + "/" + turno.fecha.split("-")[2])
+        });
+        setTurnosReservados(resultShift.turnos)
+      })
+      .catch((error) => {
+        console.log("ERROR", error)
+      })
      }else{
       setMesEnCalendario((event.start.getMonth() + 1).toString())
-      getTurnosAdmin((event.start.getMonth() + 1).toString())
-         .then((data) => {
-          data.turnos.forEach(turno => {
-            turno["title"] = turno.usuarios.length.toString()  
-          });
-          setTurnosReservados(data.turnos)
-         })
-         .catch((err) => {
-           console.log("ERROR", err)
-         });
+      clientApolo.query({
+        query: GetShiftAdmin, 
+        variables: {mes: (new Date().getMonth() + 1).toString()}
+      })
+      .then((resultShift) => {
+        console.log("SHIFT ADMIN", resultShift)
+        resultShift.turnos.forEach(turno => {
+          turno["title"] = turno.usuarios.length.toString()  
+        });
+        setTurnosReservados(resultShift.turnos)
+      })
+      .catch((error) => {
+        console.log("ERROR", error)
+      })
      }
     }
 

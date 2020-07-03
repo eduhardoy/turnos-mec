@@ -8,6 +8,9 @@ import PanelExpansion from '../Components/PanelExpansion/PanelExpansion'
 import Button from "@material-ui/core/Button";
 import clientApolo from '../Utils/ApoloClient'
 import { GetShiftAdmin } from '../Services/turnos'
+import {
+  useParams
+} from "react-router-dom";
 
 
 export default function AdminRrhhCenterDepart() {
@@ -17,21 +20,23 @@ export default function AdminRrhhCenterDepart() {
     const [ detalleTurno, setDetalleturno ] = useState([])
     const [ mesEnCalendario, setMesEnCalendario ] = useState((parseInt(new Date().getMonth()) + 1).toString())
     const classes = useStyles();
- console.log("ENTRO ACA")
+    let { role } = useParams();
+
     useEffect(() => {
       setTimeout(() => {
         clientApolo.query({
           query: GetShiftAdmin, 
-          variables: {mes: (new Date().getMonth() + 1).toString()}
+          variables: {mes: (new Date().getMonth() + 1).toString(), roles: [JSON.parse(role)]}
         })
         .then((resultShift) => {
-          console.log("SHIFT", resultShift)
-          resultShift.turnos.forEach(turno => {
+          console.log("TRUNOS", resultShift)
+          resultShift.data.ListarTurnosReservados.forEach(turno => {
+            console.log("TRUNOS", resultShift)
             turno["title"] = turno.usuarios.length.toString()  
             turno["start"] = new Date(turno.fecha.split("-")[1] + "/" + turno.fecha.split("-")[0] + "/" + turno.fecha.split("-")[2])
             turno["end"] = new Date(turno.fecha.split("-")[1] + "/" + turno.fecha.split("-")[0] + "/" + turno.fecha.split("-")[2])
           });
-          setTurnosReservados(resultShift.turnos)
+          setTurnosReservados(resultShift.data.ListarTurnosReservados)
         })
         .catch((error) => {
           console.log("ERROR", error)
@@ -73,42 +78,40 @@ export default function AdminRrhhCenterDepart() {
     }
 
     const changeRangeCalendar = (event) => {
-     if (event.start.getDate() !== 1) {
-      setMesEnCalendario((event.start.getMonth() + 2).toString())
-      clientApolo.query({
-        query: GetShiftAdmin, 
-        variables: {mes: (new Date().getMonth() + 2).toString()}
-      })
-      .then((resultShift) => {
-        console.log("SHIFT ADMIN", resultShift)
-        resultShift.turnos.forEach(turno => {
-          turno["title"] = turno.usuarios.length.toString()  
-          turno["start"] = new Date(turno.fecha.split("-")[1] + "/" + turno.fecha.split("-")[0] + "/" + turno.fecha.split("-")[2])
-          turno["end"] = new Date(turno.fecha.split("-")[1] + "/" + turno.fecha.split("-")[0] + "/" + turno.fecha.split("-")[2])
-        });
-        setTurnosReservados(resultShift.turnos)
-      })
-      .catch((error) => {
-        console.log("ERROR", error)
-      })
-     }else{
-      setMesEnCalendario((event.start.getMonth() + 1).toString())
+      if (event.start.getDate() !== 1) {
+       setMesEnCalendario((event.start.getMonth() + 2).toString())
        clientApolo.query({
-        query: GetShiftAdmin, 
-        variables: {mes: (new Date().getMonth() + 1).toString()}
-      })
-      .then((resultShift) => {
-        console.log("SHIFT ADMIN", resultShift)
-        resultShift.turnos.forEach(turno => {
-          turno["title"] = turno.usuarios.length.toString()  
-        });
-        setTurnosReservados(resultShift.turnos)
-      })
-      .catch((error) => {
-        console.log("ERROR", error)
-      })
+         query: GetShiftAdmin, 
+         variables: {mes: (event.start.getMonth() + 2).toString(), roles: [JSON.parse(role)]}
+       })
+       .then((resultShift) => {
+         resultShift.data.ListarTurnosReservados.forEach(turno => {
+           turno["title"] = turno.usuarios.length.toString()  
+           turno["start"] = new Date(turno.fecha.split("-")[1] + "/" + turno.fecha.split("-")[0] + "/" + turno.fecha.split("-")[2])
+           turno["end"] = new Date(turno.fecha.split("-")[1] + "/" + turno.fecha.split("-")[0] + "/" + turno.fecha.split("-")[2])
+         });
+         setTurnosReservados(resultShift.data.ListarTurnosReservados)
+       })
+       .catch((error) => {
+         console.log("ERROR", error)
+       })
+      }else{
+       setMesEnCalendario((event.start.getMonth() + 1).toString())
+        clientApolo.query({
+         query: GetShiftAdmin, 
+         variables: {mes: (event.start.getMonth() + 1).toString(), roles: [JSON.parse(role)]}
+       })
+       .then((resultShift) => {
+         resultShift.data.ListarTurnosReservados.forEach(turno => {
+           turno["title"] = turno.usuarios.length.toString()  
+         });
+         setTurnosReservados(resultShift.data.ListarTurnosReservados)
+       })
+       .catch((error) => {
+         console.log("ERROR", error)
+       })
+      }
      }
-    }
 
     return (
       <Grid
@@ -152,7 +155,10 @@ export default function AdminRrhhCenterDepart() {
                       DNI: {turno.dni}{" "}
                     </Typography>
                     <Typography style={{ fontSize: 16 }}>
-                      Email: {turno.email}{" "}
+                      Expediente: {turno.data.numeroExpediente}{" "}
+                    </Typography>
+                    <Typography style={{ fontSize: 16 }}>
+                      Email: {turno.correo}{" "}
                     </Typography>
                     <Typography style={{ fontSize: 16 }}>
                       Teléfono: {turno.telefono}{" "}

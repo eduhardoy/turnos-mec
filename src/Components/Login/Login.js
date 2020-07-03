@@ -15,7 +15,7 @@ export default function RecipeReviewCard() {
     const classes = useStyles();
     const [ cuit, setCuit ] = useState()
     const [ password, setPassword ] = useState()
-    const [ logged, setLogged ] = useState(false)
+    const [ role, setRole ] = useState([])
 
     const handleChange = (event) => {
         if(event.target.name === "cuit"){
@@ -32,51 +32,51 @@ export default function RecipeReviewCard() {
         variables: {cuit: cuit.toString(), contrasena: password.toString()}
       })
       .then((resultLogin) => {
-        setLogged(true)
-        console.log("RESPONSE DATA LOGIN ADMIN", resultLogin.data.LoginUsuarioNoComun.nombre)
+        setRole(resultLogin.data.LoginUsuarioNoComun.roles)
+        console.log("RESPONSE DATA LOGIN ADMIN", resultLogin.data.LoginUsuarioNoComun.roles)
       })
       .catch((error) => {
         console.log("ERROR", error)
-        setLogged(false)
       })
     }
-    console.log("LOGIN", cuit, logged)
-   if(logged){
-    if(cuit === "20553068"){
+    
+   if(role.length !== 0){
+   /* if(role[0]._key === "NivelSecundario"){
       return (
         <Redirect to="/admin/rrhh" />
       )
-     }
-     if(cuit === "27303594820" || cuit === "20276459032"){
+     }*/
+     console.log("ROLE", role)
+     if(role[0]._key === "DepartamentoDePersonalCentral"){
       return (
-        <Redirect to="/admin/centerdepart" />
+        <Redirect to={"/admin/centerdepart/" + JSON.stringify(role[0])} />
       )
      }
-     if(cuit === "20291204903"){
+     if(role[0]._key === "CertificacionesDeServicio"){
       return (
-        <Redirect to="/admin/servicescert" />
+        <Redirect to={"/admin/servicescert/" + JSON.stringify(role[0])} />
       )
      }
-     if(cuit === "27323000900"){
+     if(role[0]._key === "OficinaCentral"){
       return (
-        <Redirect to="/admin/centeroffice" />
+        <Redirect to={"/admin/centeroffice/" + JSON.stringify(role[0])} />
       )
      }
-     if(cuit === "20260371917"){
+     if(role[0]._key === "NivelSecundario"){
       return (
-        <Redirect to="/admin/secondarylevel" />
+        <Redirect to={"/admin/secondarylevel/" + JSON.stringify(role[0])} />
       )
      }
-     if(cuit === "27318669983"){
+     if(role[0]._key === "DiSEPA"){
       return (
-        <Redirect to="/admin/disepa" />
+        <Redirect to={"/admin/disepa/" + JSON.stringify(role[0])} />
       )
      }
-     if(cuit === ""){
+    /* if(cuit === ""){
       return (
         <Redirect to="/admin/digep" />
       )
-     }
+     }*/
    }else{
     return (
       <div className={classes.root}>

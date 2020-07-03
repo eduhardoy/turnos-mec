@@ -2,7 +2,6 @@ import React from 'react'
 import OfficeType from '../Components/Templates/OfficeType/OfficeType'
 import Header from '../Components/Header/Header'
 import StepIndicator from '../Components/Organisms/StepIndicator/StepIndicator'
-import Text from '../Components/Atoms/Text/Text'
 import OfficeTypeSection from '../Components/Organisms/OfficeTypeSection/OfficeTypeSection'
 import { connect } from 'react-redux'
 import { addShift } from '../Actions/Shift'
@@ -11,7 +10,7 @@ import { addShift } from '../Actions/Shift'
 const OfficeTypeView = (props) => {
     const { addDirections } = props
 
-    return <OfficeType header={<Header />} stepIndicator={<StepIndicator stepActive={0} disabledNextBtn={true}  />} title={<Text variant="h5" >Direcciones</Text>} OfficeTypeSections={<OfficeTypeSection addDirections={addDirections} />} />     
+    return <OfficeType header={<Header />} stepIndicator={<StepIndicator stepActive={0} disabledNextBtn={true}  />} OfficeTypeSections={<OfficeTypeSection addDirections={addDirections} />} />     
 }
 
 

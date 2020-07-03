@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid'
 
 
 const OfficeType = (props) => {
-    const { header, title, stepIndicator, OfficeTypeSections } = props
+    const { header, stepIndicator, OfficeTypeSections } = props
 
     return (
         <div style={styles.root}>
@@ -16,9 +16,6 @@ const OfficeType = (props) => {
                 <CssBaseline />         
                 <Grid style={styles.gridStepIndicator}>
                     {stepIndicator}
-                </Grid>
-                <Grid style={styles.gridTitle} >
-                    {title}
                 </Grid>
                 <Grid style={styles.gridOfficeTypeSections} spacing={3}  container>
                     {OfficeTypeSections}
@@ -33,11 +30,8 @@ const styles = {
     root: {
         flexGrow: 1,
     },
-    gridTitle: {
-        marginTop: "2%"
-    },
     gridOfficeTypeSections: {
-        marginTop: "5%"
+        marginTop: "1%"
     }
 }
 

@@ -11,7 +11,11 @@ export const loginComun = gql`
 export const LoginAdmin = gql`
   query LoginAdmin($cuit: String!, $contrasena: String!) {
     LoginUsuarioNoComun(data: { cuit: $cuit, contrasena: $contrasena }){
-        nombre
+        _key
+        roles{
+            _key
+            estado
+        }
     }
   }
 `

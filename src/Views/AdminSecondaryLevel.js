@@ -7,7 +7,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import PanelExpansion from '../Components/PanelExpansion/PanelExpansion'
 import Button from "@material-ui/core/Button";
 import clientApolo from '../Utils/ApoloClient'
-import { getTurnosAdmin, GetShiftAdmin } from '../Services/turnos'
+import { GetShiftAdmin } from '../Services/turnos'
+import {
+  useParams
+} from "react-router-dom";
 
 
 export default function AdminSecondaryLevel() {
@@ -17,25 +20,28 @@ export default function AdminSecondaryLevel() {
     const [ detalleTurno, setDetalleturno ] = useState([])
     const [ mesEnCalendario, setMesEnCalendario ] = useState((parseInt(new Date().getMonth()) + 1).toString())
     const classes = useStyles();
- 
+    let { role } = useParams();
+
     useEffect(() => {
       setTimeout(() => {
         clientApolo.query({
           query: GetShiftAdmin, 
-          variables: {mes: (new Date().getMonth() + 1).toString()}
+          variables: {mes: (new Date().getMonth() + 1).toString(), roles: [JSON.parse(role)]}
         })
         .then((resultShift) => {
-          resultShift.turnos.forEach(turno => {
+          console.log("TRUNOS", resultShift)
+          resultShift.data.ListarTurnosReservados.forEach(turno => {
+            console.log("TRUNOS", resultShift)
             turno["title"] = turno.usuarios.length.toString()  
             turno["start"] = new Date(turno.fecha.split("-")[1] + "/" + turno.fecha.split("-")[0] + "/" + turno.fecha.split("-")[2])
             turno["end"] = new Date(turno.fecha.split("-")[1] + "/" + turno.fecha.split("-")[0] + "/" + turno.fecha.split("-")[2])
           });
-          setTurnosReservados(resultShift.turnos)
+          setTurnosReservados(resultShift.data.ListarTurnosReservados)
         })
         .catch((error) => {
           console.log("ERROR", error)
         })
-      }, 3000);
+      }, 1000);
        
     }, [])
 
@@ -76,16 +82,15 @@ export default function AdminSecondaryLevel() {
       setMesEnCalendario((event.start.getMonth() + 2).toString())
       clientApolo.query({
         query: GetShiftAdmin, 
-        variables: {mes: (new Date().getMonth() + 2).toString()}
+        variables: {mes: (event.start.getMonth() + 2).toString(), roles: [JSON.parse(role)]}
       })
       .then((resultShift) => {
-        console.log("SHIFT ADMIN", resultShift)
-        resultShift.turnos.forEach(turno => {
+        resultShift.data.ListarTurnosReservados.forEach(turno => {
           turno["title"] = turno.usuarios.length.toString()  
           turno["start"] = new Date(turno.fecha.split("-")[1] + "/" + turno.fecha.split("-")[0] + "/" + turno.fecha.split("-")[2])
           turno["end"] = new Date(turno.fecha.split("-")[1] + "/" + turno.fecha.split("-")[0] + "/" + turno.fecha.split("-")[2])
         });
-        setTurnosReservados(resultShift.turnos)
+        setTurnosReservados(resultShift.data.ListarTurnosReservados)
       })
       .catch((error) => {
         console.log("ERROR", error)
@@ -94,14 +99,13 @@ export default function AdminSecondaryLevel() {
       setMesEnCalendario((event.start.getMonth() + 1).toString())
        clientApolo.query({
         query: GetShiftAdmin, 
-        variables: {mes: (new Date().getMonth() + 1).toString()}
+        variables: {mes: (event.start.getMonth() + 1).toString(), roles: [JSON.parse(role)]}
       })
       .then((resultShift) => {
-        console.log("SHIFT ADMIN", resultShift)
-        resultShift.turnos.forEach(turno => {
+        resultShift.data.ListarTurnosReservados.forEach(turno => {
           turno["title"] = turno.usuarios.length.toString()  
         });
-        setTurnosReservados(resultShift.turnos)
+        setTurnosReservados(resultShift.data.ListarTurnosReservados)
       })
       .catch((error) => {
         console.log("ERROR", error)
@@ -151,13 +155,22 @@ export default function AdminSecondaryLevel() {
                       DNI: {turno.dni}{" "}
                     </Typography>
                     <Typography style={{ fontSize: 16 }}>
-                      Email: {turno.email}{" "}
+                      Email: {turno.correo}{" "}
                     </Typography>
                     <Typography style={{ fontSize: 16 }}>
                       Teléfono: {turno.telefono}{" "}
                     </Typography>
                     <Typography style={{ fontSize: 16 }}>
-                      Aclaraciones: {turno.aclaraciones}{" "}
+                      Categoría: {turno.data.categoria}{" "}
+                    </Typography>
+                    <Typography style={{ fontSize: 16 }}>
+                      Tema: {turno.data.tema}{" "}
+                    </Typography>
+                    <Typography style={{ fontSize: 16 }}>
+                      Motivo: {turno.data.motivo}{" "}
+                    </Typography>
+                    <Typography style={{ fontSize: 16 }}>
+                      Otras aclaraciones: {turno.aclaraciones}{" "}
                     </Typography>
                   </PanelExpansion>
                 ))

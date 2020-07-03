@@ -55,19 +55,19 @@ const ListPaperworksSecondaryLevel = (props) => {
             addPaperworks({key: "data", value: {"categoria": "Despacho", "motivo": reasons}})
         }
         if(selectedPaperwork === "claims"){
-            addPaperworks({key: "data", value: {"categoria": "Departamento Personal", "tema:": "Reclamos", "motivo": reasons}})
+            addPaperworks({key: "data", value: {"categoria": "Departamento Personal", "tema": "Reclamos", "motivo": reasons}})
         }
         if(selectedPaperwork === "licenses"){
-            addPaperworks({key: "data", value: {"categoria": "Departamento Personal", "tema:": "Licencias/Artículo", "motivo": reasons}})
+            addPaperworks({key: "data", value: {"categoria": "Departamento Personal", "tema": "Licencias/Artículo", "motivo": reasons}})
         }
         if(selectedPaperwork === "resignation"){
-            addPaperworks({key: "data", value: {"categoria": "Departamento Personal", "tema:": "Renuncia", "motivo": reasons}})
+            addPaperworks({key: "data", value: {"categoria": "Departamento Personal", "tema": "Renuncia", "motivo": reasons}})
         }
         if(selectedPaperwork === "requestFile"){
-            addPaperworks({key: "data", value: {"categoria": "Departamento Personal", "tema:": "Solicitud de legajo / número", "motivo": reasons}})
+            addPaperworks({key: "data", value: {"categoria": "Departamento Personal", "tema": "Solicitud de legajo / número", "motivo": reasons}})
         }
         if(selectedPaperwork === "others"){
-            addPaperworks({key: "data", value: {"categoria": "Departamento Personal", "tema:": "Otros", "motivo": reasons}})
+            addPaperworks({key: "data", value: {"categoria": "Departamento Personal", "tema": "Otros", "motivo": reasons}})
         }
     }
 

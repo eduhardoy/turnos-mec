@@ -15,8 +15,8 @@ export const GetShift = gql`
 `
 
 export const GetShiftAdmin = gql`
-  query GetShiftAdmin($mes: String!) {
-    ListarTurnosReservados(data: { mes: $mes })
+  query GetShiftAdmin($mes: String!, $roles:[RolInputRecipe!]!) {
+    ListarTurnosReservados(data: { mes: $mes, roles: $roles })
   }
 `
 /*
