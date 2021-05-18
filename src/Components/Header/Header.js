@@ -64,7 +64,8 @@ align-items: center;
 @media (max-width: 1000px) {
   position: fixed;
   bottom: 20px;
-  right: 20px;
+  right: 10px;
+  z-index: 999999;
 }
 a{
   display: flex;
