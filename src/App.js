@@ -21,11 +21,23 @@ import PaperworksDigepView from './Views/PaperworksDigepView'
 import PaperworksPersonalDepartView from './Views/PaperworksPersonalDepartView'
 import ConfirmationOrErrorView from './Views/ConfirmationOrErrorView'
 import configureStore from './Store/ConfigureStore'
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import {
   BrowserRouter as Router,
   Switch,
   Route
 } from "react-router-dom"
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: '#5CB85C'
+    },
+    secondary: {
+      main: '#5CB85C'
+    }
+  }
+});
 
 const initialState = {
   stepActive: 0,
@@ -37,6 +49,7 @@ const store = configureStore(initialState)
 
 function App() {
   return (
+    <MuiThemeProvider theme={theme}>
     <Provider store={store}>
       <div className="App">
         <Router>
@@ -102,6 +115,7 @@ function App() {
         </Router>
       </div>
     </Provider>
+    </MuiThemeProvider>
   );
 }
 

@@ -7,6 +7,10 @@ import Text from '../Components/Atoms/Text/Text'
 import { Redirect } from "react-router-dom"
 import { connect } from 'react-redux'
 import { addShift } from '../Actions/Shift'
+import styled from 'styled-components'
+
+const IdentificacionWrapper = styled.div`
+`
 
 
 const IdentificationClientView = (props) => {
@@ -15,12 +19,12 @@ const IdentificationClientView = (props) => {
     const [ disabledNextBtn, setDisabledNextBtn ] = useState(true)
 
     return (
-        <React.Fragment>
+        <IdentificacionWrapper>
             {
                 validAuth ? <Redirect from="/identification" to="/selectdatetime" />
-                :   <IdentificationClient header={<Header/>} title={<Text variant="h5" >Ingresá con tu CUIT</Text>} stepIndicator={<StepperIndicator stepActive={2} backPath="/"  disabledNextBtn={disabledNextBtn} />} clientForm={<ClientForm addCuit={addCuit} setValidAuth={setValidAuth}/>} />
+                :   <IdentificationClient header={<Header/>} title={<Text variant="h5" >INGRESA CON TU CUIT</Text>} stepIndicator={<StepperIndicator stepActive={2} backPath="/"  disabledNextBtn={disabledNextBtn} />} clientForm={<ClientForm addCuit={addCuit} setValidAuth={setValidAuth}/>} />
             }
-        </React.Fragment>    
+        </IdentificacionWrapper>    
     ) 
 }
 

@@ -10,6 +10,7 @@ import {
     Redirect
   } from "react-router-dom"
 import { LoginAdmin } from '../../Services/users'
+import styled from "styled-components";
 
 export default function RecipeReviewCard() {
     const classes = useStyles();
@@ -33,6 +34,7 @@ export default function RecipeReviewCard() {
       })
       .then((resultLogin) => {
         setRole(resultLogin.data.LoginUsuarioNoComun.roles)
+        console.log("RESPONSE DATA LOGIN ADMIN", resultLogin.data.LoginUsuarioNoComun.roles)
       })
       .catch((error) => {
         console.log("ERROR", error)
@@ -45,6 +47,7 @@ export default function RecipeReviewCard() {
         <Redirect to="/admin/rrhh" />
       )
      }*/
+     console.log("ROLE", role)
      if(role[0]._key === "DepartamentoDePersonalCentral"){
       return (
         <Redirect to={"/admin/centerdepart/" + JSON.stringify(role[0])} />
@@ -77,20 +80,21 @@ export default function RecipeReviewCard() {
      }*/
    }else{
     return (
-      <div className={classes.root}>
-        <Typography>Ingresá con tu CUIT/CUIL y contraseña</Typography>
+      <LoginContainer>
+      <LoginWrapper>
+        <h3>INGRESA CON TU CUIT/CUIL</h3>
         <Grid container>
           <FormControl className={classes.formControl}>
             <TextField
               name="cuit"
               id="standard-required"
-              label="CUIT/CUIL sin guiones"
+              label="CUIT/CUIL"
               onChange={handleChange}
             />
             <TextField
               name="pass"
               d="standard-password-input"
-              label="Password"
+              label="Contraseña"
               type="password"
               autoComplete="current-password"
               onChange={handleChange}
@@ -105,27 +109,49 @@ export default function RecipeReviewCard() {
             </Button>
           </FormControl>
         </Grid>
-      </div>
+      </LoginWrapper>
+      </LoginContainer>
     );
    } 
 }
 
+const LoginContainer = styled.div`
+width: 100vw;
+height: 100vh;
+display: flex;
+justify-content: center;
+align-items: center;
+font-family: 'Lato', sans-serif;
+`
+
+const LoginWrapper = styled.div`
+width: 30%;
+height: 35%;
+min-height: 300px;
+min-width: 300px;
+background-color: white;
+display: flex;
+justify-content: center;
+align-items: center;
+flex-direction: column;
+border-radius: 10px;
+box-shadow: 2px 1px 13px 0px rgba(174,172,172,0.75);
+padding: 20px;
+div{
+  margin-bottom: 10px;
+}
+h3{
+  margin: 10px;
+}
+`
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        flexGrow: 1,
-        width: "50%",
-        margin: "auto",
-        backgroundColor: "white",
-        height: 230,
-        marginTop: "10%"
-    },
-    formControl: {
+      formControl: {
         marginTop: "5%",
         margin: theme.spacing(1),
-        minWidth: 120,
+        minWidth: 280,
         margin: "auto",
-        width: "50%"
+        width: 280
       },
       btnEntrar: {
           marginTop: "5%"

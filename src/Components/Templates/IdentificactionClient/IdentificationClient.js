@@ -18,7 +18,7 @@ const IdentificactionClient = (props) => {
                 <Grid style={styles.gridTitle} >
                     {title}
                 </Grid>
-                <Grid xl={4} lg={4} md={6} sm={12} xs={12} justify="center" alignItems="center" style={styles.gridForm}>
+                <Grid xl={4} lg={4} md={6} sm={12} xs={12} justify="center" alignItems="center" style={styles.gridForm} >
                     {clientForm}
                 </Grid>           
             </Container>
@@ -29,15 +29,18 @@ const IdentificactionClient = (props) => {
 
 const styles = {
     root: {
-        flexGrow: 1
+        flexGrow: 1,
     },
     gridStepper: {
-        margin: "auto"
+        margin: "auto",
     },
     gridTitle: {
+        padding: 20,
         marginTop: "2%"
     },
     gridForm: {
+        borderRadius: 20,
+        padding: 40,
         backgroundColor: "white",
         margin: "auto"
     }

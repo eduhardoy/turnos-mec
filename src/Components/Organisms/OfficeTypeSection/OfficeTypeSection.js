@@ -15,7 +15,7 @@ const OfficeTypeSection = (props) => {
 
     const listOffices = [
       {
-        direccion: "Dirección de Recursos Humanos",
+        direccion: "DIRECCIÓN DE RECURSOS HUMANOS",
         direcciones: 
           [
             {
@@ -30,7 +30,7 @@ const OfficeTypeSection = (props) => {
       },
 
       {
-        direccion: "Dirección de Nivel Secundario",
+        direccion: "DIRECCIÓN DE NIVEL SECUNDARIO",
         direcciones:
         [
           {
@@ -39,7 +39,7 @@ const OfficeTypeSection = (props) => {
         ]
       },
       {
-        direccion: "Dirección de Servicios Educativos de Prevención y Apoyo",
+        direccion: "DIRECCIÓN DE SERVICIOS EDUCATIVOS DE PREVENCIÓN Y APOYO",
         direcciones:
         [
           {
@@ -47,7 +47,16 @@ const OfficeTypeSection = (props) => {
           }
         ]
          
-      }
+      },
+      {
+        direccion: "CONSEJO GENERAL DE EDUCACIÓN",
+        direcciones:
+        [
+          {
+            title: "Nivel Secundario", enum: "NivelSecundario", subtitle: "Entrar", backgroundImage: SecondaryLevel, path: "/paperworkssecondary", children: "asdasdasdas" 
+          }
+        ]
+      },
      /* {
         title: "DiGEP", enum: "Digep", subtitle: "Entrar", backgroundImage: Digep, path: "/paperworksdigep", children: "asdasdasdas"
       } */
@@ -76,7 +85,7 @@ const OfficeTypeSection = (props) => {
               </React.Fragment>                             
             ))
           }
-          <Grid style={{marginTop: "2%"}}  item xl={12} lg={12} md={12} sm={12} xs={12}><Text variant="h5">Dirección de Títulos</Text> </Grid>  
+          <Grid style={{marginTop: "2%"}}  item xl={12} lg={12} md={12} sm={12} xs={12}><Text variant="h5">DIRECCIÓN DE TITULOS</Text> </Grid>  
           <Grid item xl={4} lg={4} md={4} sm={12} xs={12} justify="center" alignItems="center" style={styles.gridCard}>
               <Cards onClick={() => pressCardTitles("Títulos")} title="Títulos" subtitle="Entrar" backgroundImage={TitleBackground} >dasdasdasd</Cards>
           </Grid>

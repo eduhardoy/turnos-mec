@@ -27,11 +27,12 @@ const RadioButtonsGroup = (props) => {
 
 const styles = {
   papers: {
-    width: "100%", 
+    width: "90%", 
     marginTop: "3%", 
     borderRadius: 15, 
     textAlign: "left", 
-    paddingLeft: "1%"
+    paddingLeft: "1%",
+    padding: 20
   },
   formLabel: {
     fontSize: 22, 
