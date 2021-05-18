@@ -5,7 +5,7 @@ import clientApolo from '../../../Utils/ApoloClient'
 import { GetShift } from '../../../Services/turnos'
 
 const CalendarClientShift = (props) => {
-    const { addDate, addHour, shift, selectedFechaHoraTurno } = props
+    const { addDate, addHour, shift } = props
     const [visibleModal, setVisibleModal] = useState(false)
     const [selectedHora, setSelectedHora] = useState(0)
     const [eventosCalendar, setEventosCalendar] = useState([])
@@ -13,6 +13,7 @@ const CalendarClientShift = (props) => {
     const [ turnosApi, setTurnosApi ] = useState()
     const [horasDisponibles, setHorasDisponibles] = useState(["09:00", "09:30", "10:00", "10:30", "11:00"])
     const horasInicialesDisponibles = ["09:00", "09:30", "10:00", "10:30", "11:00"]
+    const daysWinterBreak = [13,14,15,16,17,20,21,22,23,24]
     var myEventsList = []
     
     useEffect(() => {
@@ -29,21 +30,16 @@ const CalendarClientShift = (props) => {
       })
     }, [])
 
-    const hideShowModal = (value) => {
-        setVisibleModal(value)
-    }
-
-
     const colorearTurnosDisponibles = (fechaCompleta, turnosReservados) => {
-      console.log("FECHA TRUNOS", turnosReservados)
       myEventsList = []
       var fechaHoy = fechaCompleta.getDate()
       var ultimaFechaDelMes = new Date(fechaCompleta.getFullYear(), fechaCompleta.getMonth(), 0).getDate() // obtener la ultmima fecha del mes
-    //  if(turnosReservados.length === 0){
-        for (let index = 2; index <= (ultimaFechaDelMes - fechaHoy); index++) {
-          
+        for (let index = 2; index <= (ultimaFechaDelMes - fechaHoy); index++) {        
           var fechasRestantesMes = new Date(fechaCompleta.getTime() + (24*60*60*1000) * index) // obtener las fechas restantes del mes una por una
           if(fechasRestantesMes.getDay() !== 0 && fechasRestantesMes.getDay() !== 6){ // comprobar que no sea sabado ni domingo
+            console.log("DATES", fechasRestantesMes.getMonth())
+            if(fechasRestantesMes.getMonth() === 6){
+            if(!daysWinterBreak.includes(fechasRestantesMes.getDate())){
             var event ={}
             if(turnosReservados !== undefined){
               
@@ -84,6 +80,48 @@ const CalendarClientShift = (props) => {
               myEventsList.push(event) 
             }
           }
+        }else{
+          var event ={}
+          if(turnosReservados !== undefined){
+            
+            if(!diasOcupados(fechasRestantesMes.getDate(), turnosReservados)){
+              if(shift.hora !== undefined){
+                if(selectedFecha.toLocaleDateString() === fechasRestantesMes.toLocaleDateString()){                   
+                   event = { // crear evento
+                    allDay: true,
+                    end: fechasRestantesMes,
+                    start: fechasRestantesMes,
+                    title: shift.hora,
+                  }
+                }else{
+                   event = { // crear evento
+                    allDay: true,
+                    end: fechasRestantesMes,
+                    start: fechasRestantesMes,
+                    title: '',
+                  }
+                }              
+              }else{
+                event = { // crear evento
+                  allDay: true,
+                  end: fechasRestantesMes,
+                  start: fechasRestantesMes,
+                  title: '',
+                }
+              }   
+              myEventsList.push(event) // agregar al arreglo de eventos para que pinte el calendario de verde esa fecha
+            }  
+          }else{
+            event = { // crear evento
+              allDay: true,
+              end: fechasRestantesMes,
+              start: fechasRestantesMes,
+              title: '',
+            }
+            myEventsList.push(event) 
+          }
+        }
+        }
         }
       setEventosCalendar(myEventsList)
     }

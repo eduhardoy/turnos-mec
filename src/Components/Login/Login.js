@@ -33,7 +33,6 @@ export default function RecipeReviewCard() {
       })
       .then((resultLogin) => {
         setRole(resultLogin.data.LoginUsuarioNoComun.roles)
-        console.log("RESPONSE DATA LOGIN ADMIN", resultLogin.data.LoginUsuarioNoComun.roles)
       })
       .catch((error) => {
         console.log("ERROR", error)
@@ -46,7 +45,6 @@ export default function RecipeReviewCard() {
         <Redirect to="/admin/rrhh" />
       )
      }*/
-     console.log("ROLE", role)
      if(role[0]._key === "DepartamentoDePersonalCentral"){
       return (
         <Redirect to={"/admin/centerdepart/" + JSON.stringify(role[0])} />

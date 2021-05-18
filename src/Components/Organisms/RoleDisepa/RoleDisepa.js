@@ -13,7 +13,6 @@ const RoleDisepa = (props) => {
             subTipo: [{value: "teacher", label: "Docente"}, {value: "tutor", label: "Tutor"}, {value: "others", label: "Otros"}]
         }
     ]
-    console.log("ROLE DISEPA", shift)
     useEffect(() => {
         addGlobalStateRole()
     }, [selectedRole])

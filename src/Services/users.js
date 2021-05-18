@@ -30,7 +30,6 @@ mutation Registro($cuit: String!, $dni: String!, $nombre: String!, $apellido: St
 
 const urlAuthClient = "http://mapa.mec.gob.ar:3030/auth/validar"
 export function clientLogin(dni){
-    console.log(dni, "DNI")
     return axiosRequest(urlAuthClient, {
         method: 'POST',
         body: JSON.stringify(dni),    
@@ -43,7 +42,6 @@ export function clientLogin(dni){
 
 const urlSignUpClient = "http://mapa.mec.gob.ar:3030/auth/detalle"
 export function clientSignUp(userData){
-    console.log("REQUEST", userData)
     return axiosRequest(urlSignUpClient, {
         method: 'POST',
         body: JSON.stringify(userData),    
@@ -56,7 +54,6 @@ export function clientSignUp(userData){
 
 const urlAuthAdmin= "http://mapa.mec.gob.ar:3030/auth/ingresar"
 export function authAdmin(userData){
-    console.log("REQUEST", userData)
     return axiosRequest(urlAuthAdmin, {
         method: 'POST',
         body: JSON.stringify(userData),    

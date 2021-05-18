@@ -22,7 +22,7 @@ const OfficeTypeSection = (props) => {
               title: "Oficina Central", enum: "OficinaCentral", subtitle: "Entrar", backgroundImage: RRHHBackground, path: "/identification", children: "asdasdasdas"
             },
             {
-              title: "Cert. de servicios", enum: "CertificacionesDeServicio", subtitle: "Entrar", backgroundImage: RrhhCertServices, path: "/identification", children: "asdasdasdas"
+              title: "Cert. de servicios", enum: "CertificacionesDeServicios", subtitle: "Entrar", backgroundImage: RrhhCertServices, path: "/identification", children: "asdasdasdas"
             },
             {
               title: "Dpto. de personal", enum: "DepartamentoDePersonalCentral", subtitle: "Entrar", backgroundImage: RrhhPersonalDepart, path: "/recorddeptopersonal", children: "asdasdasdas"

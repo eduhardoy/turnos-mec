@@ -6,7 +6,6 @@ const localizer = momentLocalizer(moment)
 
 const Calendars = (props) => {
     const { eventLists, onRangeChange, onSelectEvent, eventStyle  } = props
-  console.log(eventLists, "EVENTL LIST")
     return (
       <Calendar
         onRangeChange={onRangeChange}

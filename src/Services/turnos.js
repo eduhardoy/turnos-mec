@@ -34,7 +34,6 @@ export function SaveShift(dataTurno){
 
 const urlGetTurnosClient = "http://mapa.mec.gob.ar:3030/turnos/mes"
 export function getTurnosClient(dataTurno){
-    console.log("TURNOS API CLIENT REQUEST", dataTurno)
     return axiosRequest(urlGetTurnosClient, {
         method: 'POST',
         body: JSON.stringify(dataTurno),    
@@ -58,8 +57,6 @@ export function getTurnosAdmin(mes, direccion){
 
 const urlGetTurnosSuperAdmin = "http://mapa.mec.gob.ar:3030/turnos/all"
 export function getTurnosSuperAdmin(mes, tipo){
-    console.log("TOKEN MES TIPO", mes, sessionStorage.getItem("token"), tipo)
-    console.log("MES",mes, sessionStorage.getItem("token"))
     return axiosRequest(urlGetTurnosSuperAdmin + "/" + mes.toString(), {
         method: 'POST',
         body: tipo,

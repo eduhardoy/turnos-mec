@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`addShift returns action return an action 1`] = `
+Object {
+  "payload": Object {
+    "direccion": "NivelSecundario",
+  },
+  "type": "ADD_SHIFT",
+}
+`;

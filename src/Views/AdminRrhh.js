@@ -31,7 +31,6 @@ export default function AdminRrhh() {
           variables: {mes: (new Date().getMonth() + 1).toString()}
         })
         .then((resultShift) => {
-          console.log("SHIFT", resultShift)
           resultShift.turnos.forEach(turno => {
             turno["title"] = turno.usuarios.length.toString()  
             turno["start"] = new Date(turno.fecha.split("-")[1] + "/" + turno.fecha.split("-")[0] + "/" + turno.fecha.split("-")[2])
@@ -98,7 +97,6 @@ export default function AdminRrhh() {
         variables: {mes: (new Date().getMonth() + 2).toString()}
       })
       .then((resultShift) => {
-        console.log("SHIFT ADMIN", resultShift)
         resultShift.turnos.forEach(turno => {
           turno["title"] = turno.usuarios.length.toString()  
           turno["start"] = new Date(turno.fecha.split("-")[1] + "/" + turno.fecha.split("-")[0] + "/" + turno.fecha.split("-")[2])
@@ -116,7 +114,6 @@ export default function AdminRrhh() {
         variables: {mes: (new Date().getMonth() + 1).toString()}
       })
       .then((resultShift) => {
-        console.log("SHIFT ADMIN", resultShift)
         resultShift.turnos.forEach(turno => {
           turno["title"] = turno.usuarios.length.toString()  
         });
@@ -133,7 +130,6 @@ export default function AdminRrhh() {
         container
         style={{ width: "90%", margin: "auto", display: "block" }}
       >
-        {console.log("SI", eventosCalendar)}
         <div style={{ heigth: 400, margin: "auto" }}>
           <Typography style={{ fontSize: 26 }}>Turnos reservados</Typography>
         </div>

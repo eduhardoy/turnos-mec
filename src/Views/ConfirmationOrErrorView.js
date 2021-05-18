@@ -15,13 +15,12 @@ const ConfirmationOrErrorView = (props) => {
     const [ responseSaveShift, setResponseSaveShift ] = useState()
 
     useEffect(() => {
-        console.log("SHIFT FINISH", shift)
+        shift.data === undefined && (shift.data = {})
         clientApolo.mutate({
             mutation: SaveShift, 
             variables: shift
           })
           .then((resultSaveShift) => {
-              console.log(resultSaveShift)
             setLoading(false)
               if(resultSaveShift.data.ReservarTurno){
                 setResponseSaveShift(true)
