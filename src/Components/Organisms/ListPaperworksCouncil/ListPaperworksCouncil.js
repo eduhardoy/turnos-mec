@@ -13,26 +13,33 @@ const StyledGrid = styled(Grid)`
 
 
 const ListPaperworksCouncil = (props) => {
-    const {  addPaperworks, setDisabledNextBtn } = props
     const [ selectedPaperwork, setSelectedPaperwork ] = useState("levelDirections")
     
     var categorias = [
         {
-            title: "Dirección de nivel",
-            subTipo: [{value: "levelDirections", label: "Dirección de nivel"}]
+            title: "Presidencia",
+            subTipo: [{value: "audiences", label: "Audiencias"}]
         },
         {
-            title: "Supervisión Técnica",
-            subTipo: [{value: "technicalSupervision", label: "Supervisión Técnica"}]
+            title: "Secretaria General",
+            subTipo: [{value: "notifications", label: "Notificaciones"},{value: "legals", label: "Normas Legales"}, {value: "takeLook", label: "Tomar Vista"}]
         },
         {
-            title: "Despacho",
-            subTipo: [{value: "dispatch", label: "Despacho"}]
+            title: "Sala de Supervisores",
+            subTipo: [{value: "studentCertificate", label: "Certificados de Finalización de Estudios"}]
         },
         {
-            title: "Departamento Personal",
-            subTipo: [{value: "claims", label: "Reclamos/Tipo"},{value: "licenses", label: "Licencias/Artículo"}, {value: "resignation", label: "Renuncia"}, {value: "requestFile", label: "Solicitud de legajo / número"}, {value: "others", label: "Otros"}]
-        }
+            title: "Liquidaciones",
+            subTipo: [{value: "assetUpdate", label: "Actualización de Haberes"},{value: "paycheck", label: "Recibos de Sueldos"}]
+        },
+        {
+            title: "Personal Docente",
+            subTipo: [{value: "serviceCertifications", label: "Certificaciones de Servicios"},{value: "seniority", label: "Reconocimiento de Antigüedad"}, {value: "wagesSchooling", label: "Salarios y Escolaridad"}]
+        },
+        {
+            title: "Personal Administrativo",
+            subTipo: [{value: "admServiceCertifications", label: "Certificaciones de Servicios"},{value: "retirementProcedures", label: "Tramites Jubilatorios"}, {value: "admWagesSchooling", label: "Salarios y Escolaridad"}, {value: "extraordinaryLicenses", label: "Consulta de Licencias Extraordinarias"}, {value: "files", label: "Expedientes"}]
+        },
     ]
 
     useEffect(() => {
@@ -44,29 +51,50 @@ const ListPaperworksCouncil = (props) => {
     }
 
     const addGlobalStatePaperworks = () => {
-        if(selectedPaperwork === "levelDirections"){
-            addPaperworks({key: "data", value: {"categoria": "Dirección de nivel"}})
+        if(selectedPaperwork === "audiences"){
+            addPaperworks({key: "data", value: {"categoria": "Presidencia", "tema": "Audiencias"}})
         }
-        if(selectedPaperwork === "technicalSupervision"){
-            addPaperworks({key: "data", value: {"categoria": "Supervisión Técnica"}})
+        if(selectedPaperwork === "notifications"){
+            addPaperworks({key: "data", value: {"categoria": "Secretaria General", "tema": "Notificaciones"}})
         }
-        if(selectedPaperwork === "dispatch"){
-            addPaperworks({key: "data", value: {"categoria": "Despacho"}})
+        if(selectedPaperwork === "legals"){
+            addPaperworks({key: "data", value: {"categoria": "Secretaria General", "tema": "Normas Legales"}})
         }
-        if(selectedPaperwork === "claims"){
-            addPaperworks({key: "data", value: {"categoria": "Departamento Personal", "tema": "Reclamos"}})
+        if(selectedPaperwork === "takeLook"){
+            addPaperworks({key: "data", value: {"categoria": "Secretaria General", "tema": "Tomar Vista"}})
         }
-        if(selectedPaperwork === "licenses"){
-            addPaperworks({key: "data", value: {"categoria": "Departamento Personal", "tema": "Licencias/Artículo"}})
+        if(selectedPaperwork === "studentCertificate"){
+            addPaperworks({key: "data", value: {"categoria": "Sala de Supervisores", "tema": "Certificados de Finalización de Estudios"}})
         }
-        if(selectedPaperwork === "resignation"){
-            addPaperworks({key: "data", value: {"categoria": "Departamento Personal", "tema": "Renuncia"}})
+        if(selectedPaperwork === "assetUpdate"){
+            addPaperworks({key: "data", value: {"categoria": "Liquidaciones", "tema": "Actualización de Haberes"}})
         }
-        if(selectedPaperwork === "requestFile"){
-            addPaperworks({key: "data", value: {"categoria": "Departamento Personal", "tema": "Solicitud de legajo / número"}})
+        if(selectedPaperwork === "paycheck"){
+            addPaperworks({key: "data", value: {"categoria": "Liquidacioness", "tema": "Recibos de Sueldos"}})
         }
-        if(selectedPaperwork === "others"){
-            addPaperworks({key: "data", value: {"categoria": "Departamento Personal", "tema": "Otros"}})
+        if(selectedPaperwork === "serviceCertifications"){
+            addPaperworks({key: "data", value: {"categoria": "Personal Docente", "tema": "Certificaciones de Servicios"}})
+        }
+        if(selectedPaperwork === "seniority"){
+            addPaperworks({key: "data", value: {"categoria": "Personal Docente", "tema": "Reconocimiento de Antigüedad"}})
+        }
+        if(selectedPaperwork === "wagesSchooling"){
+            addPaperworks({key: "data", value: {"categoria": "Personal Docente", "tema": "Salarios y Escolaridad"}})
+        }
+        if(selectedPaperwork === "admServiceCertifications"){
+            addPaperworks({key: "data", value: {"categoria": "Personal Administrativo", "tema": "Certificaciones de Servicios"}})
+        }
+        if(selectedPaperwork === "retirementProcedures"){
+            addPaperworks({key: "data", value: {"categoria": "Personal Administrativo", "tema": "Tramites Jubilatorios"}})
+        }
+        if(selectedPaperwork === "admWagesSchooling"){
+            addPaperworks({key: "data", value: {"categoria": "Personal Administrativo", "tema": "Salarios y Escolaridad"}})
+        }
+        if(selectedPaperwork === "extraordinaryLicenses"){
+            addPaperworks({key: "data", value: {"categoria": "Personal Administrativo", "tema": "Consulta de Licencias Extraordinarias"}})
+        }
+        if(selectedPaperwork === "files"){
+            addPaperworks({key: "data", value: {"categoria": "Personal Administrativo", "tema": "Expedientes"}})
         }
     }
 
