@@ -70,6 +70,11 @@ export default function RecipeReviewCard() {
         <Redirect to={"/admin/disepa/" + JSON.stringify(role[0])} />
       )
      }
+     if(role[0]._key === "ConsejoGeneralEducacion"){
+      return (
+        <Redirect to={"/admin/consejogeneraleducacion/" + JSON.stringify(role[0])} />
+      )
+     }
     /* if(cuit === ""){
       return (
         <Redirect to="/admin/digep" />

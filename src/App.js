@@ -11,7 +11,7 @@ import AdminDisepa from './Views/AdminDisepa'
 import AdminDigep from './Views/AdminDigep'
 import AdminSecondaryLevel from './Views/AdminSecondaryLevel'
 import OfficeTypeView from './Views/OfficeTypeView'
-import DateTimeClientShiftView from './Views/DateTimeClientShiftView' 
+import DateTimeClientShiftView from './Views/DateTimeClientShiftView'
 import ModalityClarificationsClientView from './Views/ModalityClarificationsClientView'
 import PaperworksDisepaView from './Views/PaperworksDisepaView'
 import RoleDisepaView from './Views/RoleDisepaView'
@@ -26,10 +26,11 @@ import {
   Switch,
   Route
 } from "react-router-dom"
+import AdminConsejoGeneralEducacion from './Views/AdminConsejoGeneralEducacion';
 
 const initialState = {
   stepActive: 0,
-  user : {},
+  user: {},
   shift: { modalidad: "Presencial", aclaraciones: "" }
 }
 
@@ -97,6 +98,9 @@ function App() {
             </Route>
             <Route path="/admin/secondarylevel/:role">
               <AdminSecondaryLevel />
+            </Route>
+            <Route path="/admin/consejogeneraleducacion/:role">
+              <AdminConsejoGeneralEducacion />
             </Route>
           </Switch>
         </Router>
