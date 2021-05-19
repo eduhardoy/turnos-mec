@@ -13,6 +13,7 @@ const StyledGrid = styled(Grid)`
 
 
 const ListPaperworksCouncil = (props) => {
+    const {  addPaperworks } = props
     const [ selectedPaperwork, setSelectedPaperwork ] = useState("levelDirections")
     
     var categorias = [
