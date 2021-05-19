@@ -45,28 +45,28 @@ const ListPaperworksCouncil = (props) => {
 
     const addGlobalStatePaperworks = () => {
         if(selectedPaperwork === "levelDirections"){
-            addPaperworks({key: "data", value: {"categoria": "Dirección de nivel", "motivo": reasons}})
+            addPaperworks({key: "data", value: {"categoria": "Dirección de nivel"}})
         }
         if(selectedPaperwork === "technicalSupervision"){
-            addPaperworks({key: "data", value: {"categoria": "Supervisión Técnica", "motivo": reasons}})
+            addPaperworks({key: "data", value: {"categoria": "Supervisión Técnica"}})
         }
         if(selectedPaperwork === "dispatch"){
-            addPaperworks({key: "data", value: {"categoria": "Despacho", "motivo": reasons}})
+            addPaperworks({key: "data", value: {"categoria": "Despacho"}})
         }
         if(selectedPaperwork === "claims"){
-            addPaperworks({key: "data", value: {"categoria": "Departamento Personal", "tema": "Reclamos", "motivo": reasons}})
+            addPaperworks({key: "data", value: {"categoria": "Departamento Personal", "tema": "Reclamos"}})
         }
         if(selectedPaperwork === "licenses"){
-            addPaperworks({key: "data", value: {"categoria": "Departamento Personal", "tema": "Licencias/Artículo", "motivo": reasons}})
+            addPaperworks({key: "data", value: {"categoria": "Departamento Personal", "tema": "Licencias/Artículo"}})
         }
         if(selectedPaperwork === "resignation"){
-            addPaperworks({key: "data", value: {"categoria": "Departamento Personal", "tema": "Renuncia", "motivo": reasons}})
+            addPaperworks({key: "data", value: {"categoria": "Departamento Personal", "tema": "Renuncia"}})
         }
         if(selectedPaperwork === "requestFile"){
-            addPaperworks({key: "data", value: {"categoria": "Departamento Personal", "tema": "Solicitud de legajo / número", "motivo": reasons}})
+            addPaperworks({key: "data", value: {"categoria": "Departamento Personal", "tema": "Solicitud de legajo / número"}})
         }
         if(selectedPaperwork === "others"){
-            addPaperworks({key: "data", value: {"categoria": "Departamento Personal", "tema": "Otros", "motivo": reasons}})
+            addPaperworks({key: "data", value: {"categoria": "Departamento Personal", "tema": "Otros"}})
         }
     }
 
@@ -75,7 +75,6 @@ const ListPaperworksCouncil = (props) => {
             {
                 categorias.map(categoria =>  <RadioButtonsGroup value={selectedPaperwork} formLabel={categoria.title} radioGroup={categoria.subTipo} name={categoria.title} onChange={handleChangeRadioButtons} />)            
             }
-
         </StyledGrid>     
     )
 }
