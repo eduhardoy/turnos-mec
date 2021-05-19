@@ -2,52 +2,62 @@ import React from 'react'
 import Grid from '@material-ui/core/Grid'
 import Cards from '../../Molecules/Cards/Cards'
 import Text from '../../Atoms/Text/Text'
-import TitleBackground from '../../../titlesBackground.jpg'
-import RRHHBackground from '../../../rrhhBackground.jpg'
-import RrhhCertServices from '../../../Assets/Images/RrhhCertServices.jpg'
-import RrhhPersonalDepart from '../../../Assets/Images/RrhhPersonalDepart.jpg'
-import SecondaryLevel from '../../../Assets/Images/secondaryLevel.jpg'
-import Disepa from '../../../Assets/Images/Disepa.jpg'
-import Digep from '../../../Assets/Images/Digep.jpg'
+import TitleBackground from '../../../Assets/Images/titulos.png'
+import RRHHBackground from '../../../Assets/Images/oficinacentral.png'
+import RrhhCertServices from '../../../Assets/Images/certdeser.png'
+import RrhhPersonalDepart from '../../../Assets/Images/dptopersonal.png'
+import SecondaryLevel from '../../../Assets/Images/secundario.png'
+import ConsejoEdu from '../../../Assets/Images/consejo.png'
+import Disepa from '../../../Assets/Images/disepa.png'
+import Digep from '../../../Assets/Images/disepa.png'
 
 const OfficeTypeSection = (props) => {
     const { addDirections } = props
 
     const listOffices = [
       {
-        direccion: "Dirección de Recursos Humanos",
+        direccion: "DIRECCIÓN DE RECURSOS HUMANOS",
         direcciones: 
           [
             {
-              title: "Oficina Central", enum: "OficinaCentral", subtitle: "Entrar", backgroundImage: RRHHBackground, path: "/identification", children: "asdasdasdas"
+              title: "Oficina Central", enum: "OficinaCentral", subtitle: "ENTRAR", backgroundImage: RRHHBackground, path: "/identification", children: "asdasdasdas"
             },
             {
-              title: "Cert. de servicios", enum: "CertificacionesDeServicios", subtitle: "Entrar", backgroundImage: RrhhCertServices, path: "/identification", children: "asdasdasdas"
+              title: "Certifación de Servicios", enum: "CertificacionesDeServicios", subtitle: "ENTRAR", backgroundImage: RrhhCertServices, path: "/identification", children: "asdasdasdas"
             },
             {
-              title: "Dpto. de personal", enum: "DepartamentoDePersonalCentral", subtitle: "Entrar", backgroundImage: RrhhPersonalDepart, path: "/recorddeptopersonal", children: "asdasdasdas"
+              title: "Departamento de Personal", enum: "DepartamentoDePersonalCentral", subtitle: "ENTRAR", backgroundImage: RrhhPersonalDepart, path: "/recorddeptopersonal", children: "asdasdasdas"
             }]
       },
 
       {
-        direccion: "Dirección de Nivel Secundario",
+        direccion: "DIRECCIÓN DE NIVEL SECUNDARIO",
         direcciones:
         [
           {
-            title: "Nivel Secundario", enum: "NivelSecundario", subtitle: "Entrar", backgroundImage: SecondaryLevel, path: "/paperworkssecondary", children: "asdasdasdas" 
+            title: "Dirección de Nivel Secundario", enum: "NivelSecundario", subtitle: "ENTRAR", backgroundImage: SecondaryLevel, path: "/paperworkssecondary", children: "asdasdasdas" 
           }
         ]
       },
       {
-        direccion: "Dirección de Servicios Educativos de Prevención y Apoyo",
+        direccion: "DIRECCIÓN DE SERVICIOS EDUCATIVOS DE PREVENCIÓN Y APOYO",
         direcciones:
         [
           {
-            title: "DiSEPA", enum: "DiSEPA", subtitle: "Entrar", backgroundImage: Disepa, path: "/paperworksdisepa", children: "asdasdasdas"
+            title: "DiSEPA", enum: "DiSEPA", subtitle: "ENTRAR", backgroundImage: Disepa, path: "/paperworksdisepa", children: "asdasdasdas"
           }
         ]
          
-      }
+      },
+      {
+        direccion: "CONSEJO GENERAL DE EDUCACIÓN",
+        direcciones:
+        [
+          {
+            title: "Consejo General de Educación", enum: "NivelSecundario", subtitle: "ENTRAR", backgroundImage: ConsejoEdu, path: "/paperworkssecondary", children: "asdasdasdas" 
+          }
+        ]
+      },
      /* {
         title: "DiGEP", enum: "Digep", subtitle: "Entrar", backgroundImage: Digep, path: "/paperworksdigep", children: "asdasdasdas"
       } */
@@ -76,9 +86,9 @@ const OfficeTypeSection = (props) => {
               </React.Fragment>                             
             ))
           }
-          <Grid style={{marginTop: "2%"}}  item xl={12} lg={12} md={12} sm={12} xs={12}><Text variant="h5">Dirección de Títulos</Text> </Grid>  
+          <Grid style={{marginTop: "2%"}}  item xl={12} lg={12} md={12} sm={12} xs={12}><Text variant="h5">DIRECCIÓN DE TITULOS</Text> </Grid>  
           <Grid item xl={4} lg={4} md={4} sm={12} xs={12} justify="center" alignItems="center" style={styles.gridCard}>
-              <Cards onClick={() => pressCardTitles("Títulos")} title="Títulos" subtitle="Entrar" backgroundImage={TitleBackground} >dasdasdasd</Cards>
+              <Cards onClick={() => pressCardTitles("Títulos")} title="Dirección de Títulos" subtitle="ENTRAR" backgroundImage={TitleBackground} >dasdasdasd</Cards>
           </Grid>
         </React.Fragment> 
     )

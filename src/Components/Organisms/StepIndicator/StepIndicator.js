@@ -2,6 +2,21 @@ import React from 'react'
 import Steppers from '../../Molecules/Steppers/Steppers'
 import Button from '../../Atoms/Button/Button'
 import { Link } from "react-router-dom"
+import styled from 'styled-components'
+
+const StepperWrapper = styled.div`
+margin: 20px;
+margin-top: 40px;
+`
+
+const StepperButtonWrapper = styled.div`
+margin: 0;
+padding: 10px;
+button{
+    width: 100px;
+    height: 40px;
+    margin: 10px;
+}`
 
 const StepIndicator = (props) => {
     const { stepActive, backPath, nextPath, disabledNextBtn, onClickNextBtn } = props
@@ -15,22 +30,25 @@ const StepIndicator = (props) => {
     ]
 
     return (
-        <React.Fragment>
+        <StepperWrapper>
             <Steppers  steps={steps} activeStep={stepActive} />
-            <Button variant="outlined" styles={styles.buttonBack} ><Link style={{color: "#7fb850"}} exact to={backPath} >Volver</Link></Button>
-            <Button variant="contained" styles={styles.buttonNext} disabled={disabledNextBtn} ><Link onClick={onClickNextBtn} exact to={nextPath} >Seguir</Link></Button>
-        </React.Fragment> 
+            <StepperButtonWrapper>
+            <Button variant="outlined" styles={styles.buttonBack} ><Link style={{color: "#fff"}} exact to={backPath} >Volver</Link></Button>
+            <Button variant="contained" styles={styles.buttonNext} disabled={disabledNextBtn} ><Link style={{color: "#fff"}} onClick={onClickNextBtn} exact to={nextPath} >Seguir</Link></Button>
+            </StepperButtonWrapper>
+        </StepperWrapper> 
     )
 }
 
 
 const styles = {
     buttonBack: {
-        //color: "#7fb850", 
-        borderColor: "#7fb850"
+        backgroundColor: "#000", 
+        color: "#fff", 
+        borderColor: "#000"
     },
     buttonNext: {
-        backgroundColor: "#7fb850", 
+        backgroundColor: "#5CB85C", 
         color: "#fff"
     }
 }

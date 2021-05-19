@@ -1,7 +1,16 @@
 import React, { useState, useEffect } from 'react'
-import Grid from '@material-ui/core/Grid'
 import RadioButtonsGroup from '../../Molecules/RadioButtonsGroup/RadioButtonsGroup'
 import PaperTextField from '../../Molecules/PaperTextField/PaperTextField'
+import styled from 'styled-components'
+import { Grid } from '@material-ui/core'
+
+const StyledGrid = styled(Grid)`
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+`
 
 
 const ListPaperworksSecondaryLevel = (props) => {
@@ -72,12 +81,12 @@ const ListPaperworksSecondaryLevel = (props) => {
     }
 
     return (
-        <Grid xl={12} lg={12} md={12} sm={12} xs={12} justify="center" alignItems="center">
+        <StyledGrid xl={12} lg={12} md={12} sm={12} xs={12} justify="center" alignItems="center">
             {
                 categorias.map(categoria =>  <RadioButtonsGroup value={selectedPaperwork} formLabel={categoria.title} radioGroup={categoria.subTipo} name={categoria.title} onChange={handleChangeRadioButtons} />)            
             }
             <PaperTextField idTextField="reasonsText" placeholder="Detallá el tema o motivo del turno" onChange={handleChangeText} >Tema o Motivo</PaperTextField >
-        </Grid>     
+        </StyledGrid>     
     )
 }
 
