@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import RadioButtonsGroup from '../../Molecules/RadioButtonsGroup/RadioButtonsGroup'
-import PaperTextField from '../../Molecules/PaperTextField/PaperTextField'
 import styled from 'styled-components'
 import { Grid } from '@material-ui/core'
 
@@ -16,7 +15,6 @@ const StyledGrid = styled(Grid)`
 const ListPaperworksCouncil = (props) => {
     const {  addPaperworks, setDisabledNextBtn } = props
     const [ selectedPaperwork, setSelectedPaperwork ] = useState("levelDirections")
-    const [ reasons, setReasons ] = useState()
     
     var categorias = [
         {
@@ -43,10 +41,6 @@ const ListPaperworksCouncil = (props) => {
     
     const handleChangeRadioButtons = (event) => {
         setSelectedPaperwork(event.target.value)
-    }
-
-    const handleChangeText = (event) => {
-        setReasons(event.target.value)
     }
 
     const addGlobalStatePaperworks = () => {
