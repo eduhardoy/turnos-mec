@@ -11,7 +11,7 @@ import AdminDisepa from './Views/AdminDisepa'
 import AdminDigep from './Views/AdminDigep'
 import AdminSecondaryLevel from './Views/AdminSecondaryLevel'
 import OfficeTypeView from './Views/OfficeTypeView'
-import DateTimeClientShiftView from './Views/DateTimeClientShiftView' 
+import DateTimeClientShiftView from './Views/DateTimeClientShiftView'
 import ModalityClarificationsClientView from './Views/ModalityClarificationsClientView'
 import PaperworksDisepaView from './Views/PaperworksDisepaView'
 import RoleDisepaView from './Views/RoleDisepaView'
@@ -29,6 +29,7 @@ import {
 } from "react-router-dom"
 import PaperworksCouncil from './Views/PaperworksCouncil';
 
+import AdminConsejoGeneralEducacion from './Views/AdminConsejoGeneralEducacion';
 
 const theme = createMuiTheme({
   palette: {
@@ -43,7 +44,7 @@ const theme = createMuiTheme({
 
 const initialState = {
   stepActive: 0,
-  user : {},
+  user: {},
   shift: { modalidad: "Presencial", aclaraciones: "" }
 }
 
@@ -115,6 +116,9 @@ function App() {
             </Route>
             <Route path="/admin/secondarylevel/:role">
               <AdminSecondaryLevel />
+            </Route>
+            <Route path="/admin/consejogeneraleducacion/:role">
+              <AdminConsejoGeneralEducacion />
             </Route>
           </Switch>
         </Router>
