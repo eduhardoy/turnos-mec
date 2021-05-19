@@ -27,6 +27,8 @@ import {
   Switch,
   Route
 } from "react-router-dom"
+import PaperworksCouncil from './Views/PaperworksCouncil';
+
 
 const theme = createMuiTheme({
   palette: {
@@ -74,6 +76,9 @@ function App() {
             </Route>
             <Route path="/paperworkssecondary">
               <PaperworksSecondaryLevelView />
+            </Route>
+            <Route path="/paperworkscouncil">
+              <PaperworksCouncil />
             </Route>
             <Route path="/rolesecondary">
               <RoleSecondaryLevelView />

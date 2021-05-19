@@ -54,7 +54,7 @@ const OfficeTypeSection = (props) => {
         direcciones:
         [
           {
-            title: "Consejo General de Educación", enum: "NivelSecundario", subtitle: "ENTRAR", backgroundImage: ConsejoEdu, path: "/paperworkssecondary", children: "asdasdasdas" 
+            title: "Consejo General de Educación", enum: "ConsejoGeneral", subtitle: "ENTRAR", backgroundImage: ConsejoEdu, path: "/paperworkscouncil", children: "asdasdasdas" 
           }
         ]
       },
